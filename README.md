@@ -2,9 +2,9 @@
 
 Codi i apunts en markdown de la primera part de reflexió de l'assignatura Conceptes Avançats de Programació (CAP)
 
-## Entorn de treball
+## Entorn de treball
 
-### Pharo 3.0 (macOS)
+### Pharo 3.0 (macOS)
 
 Instal·lar **Pharo 3.0** a Mac és molt fàcil. Ves a la carpeta `pharo/` d'aquest repositori i descomprimeix l'arxiu `pharo-mac-stable.zip`. Apareixerà l'aplicació Pharo, ja està.
 
@@ -21,7 +21,11 @@ Per poder utilitzar aquest repositori al Pharo cal seguir els següents passos:
 Dintre de l'entorn de **Pharo**, obra un Workspace amb el botó dret i obra un `Workspace` i executa (`cmd + D`, `ctrl + D`) el següent codi:
 
 ```smalltalk
-Gofer new    url: 'http://ss3.gemstone.com/ss/FileTree';    package: 'ConfigurationOfFileTree';    load.((Smalltalk at: #ConfigurationOfFileTree) project version: #'stable') load.
+Gofer new
+    url: 'http://ss3.gemstone.com/ss/FileTree';
+    package: 'ConfigurationOfFileTree';
+    load.
+((Smalltalk at: #ConfigurationOfFileTree) project version: #'stable') load.
 ```
 
 Això instal·larà els paquets necessaris per poder instal·lar extensions de *github*.
@@ -38,7 +42,10 @@ Metacello new
     repository: 'github://dalehenrich/metacello-work:master/repository';
   onConflict: [:ex | ex allow];
     load.
-Metacello new    baseline: 'FileTree';    repository: 'github://dalehenrich/filetree:pharo3.0/repository';    load.
+Metacello new
+    baseline: 'FileTree';
+    repository: 'github://dalehenrich/filetree:pharo3.0/repository';
+    load.
 ```
 
 *Si estás utilitzant una altra versió de Pharo que no sigui la 3.0 canvia on posa `filetree:pharo3.0` per la versió que toqui (pharo1.1, pharo1.3, pharo1.4, pharo2.0).*
@@ -53,7 +60,7 @@ Ara cal clonar aquest repositori on vulguis, si no el tenies ja. Fora del **Phar
 git clone https://github.com/felixarpa/CAP-Reflexio.git
 ```
 
-#### Obra el repositori
+#### Obra el repositori
 
 Ara tornem al **Pharo** per obrir el repositori i poder accedir al codi.
 
