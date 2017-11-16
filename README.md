@@ -70,3 +70,6 @@ Ara tornem al **Pharo** per obrir el repositori i poder accedir al codi.
 4. Seleccioneu els paquets que vulgueu i doneu-li a `Load` per que apareguin al *Nautilus*.
 
 ## Contingut
+
+- [Pasta](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Pasta.package/Pasta.class)
+- [PastaTest](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Pasta.package/PastaTest.class)
