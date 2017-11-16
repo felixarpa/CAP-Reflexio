@@ -1,0 +1,15 @@
+{
+	"category" : "Pasta",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"moneda",
+		"quantitat" ],
+	"name" : "Pasta",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

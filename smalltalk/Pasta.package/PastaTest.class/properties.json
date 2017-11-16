@@ -1,0 +1,16 @@
+{
+	"category" : "Pasta",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"eur5",
+		"eur10",
+		"eur20" ],
+	"name" : "PastaTest",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }
