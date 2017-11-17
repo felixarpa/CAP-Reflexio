@@ -1,0 +1,1 @@
+An IndexedObject is xxxxxxxxx.

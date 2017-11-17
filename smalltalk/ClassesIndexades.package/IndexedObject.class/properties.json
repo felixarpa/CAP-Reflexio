@@ -1,0 +1,14 @@
+{
+	"category" : "ClassesIndexades",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "IndexedObject",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "variable" }
