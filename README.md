@@ -10,9 +10,9 @@ Instal·lar **Pharo 3.0** a Mac és molt fàcil. Ves a la carpeta `pharo/` d'aqu
 
 ### Pharo Image
 
-Per començar a utilitzar **Pharo 3.0** es necessita una imatge. Està l'última versió de **Pharo 3.0** comprimida a l'arxiu `Pharo-Image-3.0-latest.zip`.
+Per començar a utilitzar **Pharo 3.0** es necessita una imatge. Està l'última versió de **Pharo 3.0** comprimida a l'arxiu `Pharo-Image-3.0-latest.zip`. Aquesta imatge només té les classes per defecte de Smalltalk, no té cap classe ni paquet utilitzat a classe o en aquest repositori.
 
-### Entorn de pharo
+### Entorn de Pharo
 
 Per poder utilitzar aquest repositori al Pharo cal seguir els següents passos:
 
