@@ -1,0 +1,1 @@
+Play a rigged game and check the results.

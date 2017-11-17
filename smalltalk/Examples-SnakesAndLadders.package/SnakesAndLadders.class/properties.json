@@ -1,0 +1,18 @@
+{
+	"category" : "Examples-SnakesAndLadders",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "on 3/14/2006 19:05",
+	"instvars" : [
+		"players",
+		"squares",
+		"turn",
+		"die",
+		"over" ],
+	"name" : "SnakesAndLadders",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

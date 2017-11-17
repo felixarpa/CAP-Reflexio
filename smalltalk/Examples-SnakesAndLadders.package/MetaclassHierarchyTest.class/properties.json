@@ -1,0 +1,14 @@
+{
+	"category" : "Examples-SnakesAndLadders",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "on 3/19/2006 11:33",
+	"instvars" : [
+		 ],
+	"name" : "MetaclassHierarchyTest",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

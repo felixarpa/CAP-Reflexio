@@ -1,0 +1,14 @@
+{
+	"category" : "Examples-SnakesAndLadders",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "on 3/20/2006 09:14",
+	"instvars" : [
+		"back" ],
+	"name" : "SnakeSquare",
+	"pools" : [
+		 ],
+	"super" : "BoardSquare",
+	"type" : "normal" }

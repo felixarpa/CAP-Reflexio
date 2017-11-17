@@ -1,0 +1,3 @@
+testing
+isOccupied
+	^ player notNil

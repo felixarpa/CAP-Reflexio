@@ -1,0 +1,3 @@
+playing
+destination
+	^ self

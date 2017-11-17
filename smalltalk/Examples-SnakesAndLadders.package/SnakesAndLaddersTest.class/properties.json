@@ -1,0 +1,17 @@
+{
+	"category" : "Examples-SnakesAndLadders",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "on 3/15/2006 13:24",
+	"instvars" : [
+		"eg",
+		"loadedDie",
+		"jack",
+		"jill" ],
+	"name" : "SnakesAndLaddersTest",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }

@@ -1,0 +1,1 @@
+For testing purposes. When rolled, a loaded die returns a fixed value.

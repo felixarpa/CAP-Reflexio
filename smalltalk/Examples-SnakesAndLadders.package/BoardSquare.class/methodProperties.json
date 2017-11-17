@@ -1,0 +1,19 @@
+{
+	"class" : {
+		 },
+	"instance" : {
+		"backwardBy:" : "on 3/15/2006 15:26",
+		"contents" : "on 3/14/2006 17:18",
+		"destination" : "on 3/15/2006 15:26",
+		"forwardBy:" : "on 3/18/2006 11:43",
+		"invariant" : "jjddpp 9/4/2012 12:23",
+		"isFirstSquare" : "on 3/14/2006 16:12",
+		"isLastSquare" : "on 3/20/2006 10:17",
+		"isOccupied" : "on 3/14/2006 16:40",
+		"landHere:" : "on 3/15/2006 15:43",
+		"nextSquare" : "on 3/14/2006 16:32",
+		"position" : "on 3/14/2006 17:03",
+		"previousSquare" : "on 3/14/2006 16:32",
+		"printOn:" : "on 3/14/2006 16:08",
+		"remove:" : "on 3/14/2006 16:14",
+		"setPosition:board:" : "on 3/18/2006 15:13" } }
