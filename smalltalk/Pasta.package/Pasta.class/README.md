@@ -5,7 +5,7 @@
 ### moneda: quantitat:
 
 ```smalltalk
-moneda: unaMoneda quantitat: unNumero	^ self new moneda: unaMoneda; quantitat: unNumero.
+moneda: unaMoneda quantitat: unNumero    ^ self new moneda: unaMoneda; quantitat: unNumero.
 ```
 
 ## Accessing
@@ -16,28 +16,28 @@ moneda: unaMoneda quantitat: unNumero	^ self new moneda: unaMoneda; quantitat: 
 
 ```smalltalk
 moneda
-	^ moneda
+    ^ moneda
 ```
 
 ### moneda:
 
 ```smalltalk
 moneda: anObject
-	moneda := anObject
+    moneda := anObject
 ```
 
 ### quantitat
 
 ```smalltalk
 quantitat
-	^ quantitat
+    ^ quantitat
 ```
 
 ### quantitat:
 
 ```smalltalk
 quantitat: anObject
-	quantitat := anObject
+    quantitat := anObject
 ```
 
 ## Comparing
@@ -45,7 +45,7 @@ quantitat: anObject
 ### =
 
 ```smalltalk
-= unaPasta 	^ self moneda = unaPasta moneda and: [ self quantitat = unaPasta quantitat ]
+= unaPasta     ^ self moneda = unaPasta moneda and: [ self quantitat = unaPasta quantitat ]
 ```
 
 ## Aritmetic
@@ -53,5 +53,5 @@ quantitat: anObject
 ### +
 
 ```smalltalk
-+ unaPasta	^ self moneda = unaPasta moneda		ifTrue: [ Pasta moneda: self moneda quantitat: ( self quantitat + unaPasta quantitat ) ]		ifFalse: [ self error: 'No es poden usar monedes diferents' ]
++ unaPasta    ^ self moneda = unaPasta moneda        ifTrue: [ Pasta moneda: self moneda quantitat: ( self quantitat + unaPasta quantitat ) ]        ifFalse: [ self error: 'No es poden usar monedes diferents' ]
 ```
