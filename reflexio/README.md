@@ -1,13 +1,13 @@
 # Reflexió
 
-- [Definició](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/instroduccio#definicio)
-- [Fonaments](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/instroduccio#fonaments)
-	- [Reflexio](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/instroduccio#reflexio)
-	- [Introspecció](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/instroduccio#introspeccio)
-	- [Intercessió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/instroduccio#intercessio)
-	- [Sistemes reflexius](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/instroduccio#sistemes-reflexius)
-	- [Reflexió estructural](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/instroduccio#reflexio-estructural)
-	- [Reflexió de comportament](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/instroduccio#reflexio-de-comportament)
+- [Definició](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#definicio)
+- [Fonaments](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#fonaments)
+	- [Reflexio](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexio)
+	- [Introspecció](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#introspeccio)
+	- [Intercessió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#intercessio)
+	- [Sistemes reflexius](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#sistemes-reflexius)
+	- [Reflexió estructural](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexio-estructural)
+	- [Reflexió de comportament](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexio-de-comportament)
 
 ## Definició
 
