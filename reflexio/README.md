@@ -262,7 +262,7 @@ Les classes són objectes, instàncies de la seva metaclasse, així que poden te
 
 #### Exemple: El patró Singleton
 
-Volem que la classe sigui singleton.
+Volem que la classe sigui singleton ([codi](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Patterns.package/Singleton.class)).
 
 ```smalltalk
 Object subclass: #Singleton    instanceVariableNames: ''    classVariableNames: ''    category: 'Patterns'
@@ -285,22 +285,6 @@ new    "You cannot create a new singleton object"
 uniqueInstance    "get the unique instance of this class"    uniqueInstance isNil       ifTrue: [ uniqueInstance := self basicNew initialize ].    ^ uniqueInstance
 ```
 
-Això en Java seria:
+### Variables de classe
 
-```java
-public class Singleton {
-    
-    private static Singleton uniqueInstance = null;
-    
-    private Singleton() {}
-    
-    public static Singleton getUniqueInstance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new Singleton();
-        }
-        return uniqueInstance;
-    }
-    
-}
-```
-
+Serveixen per compartir informació entre instàncies d'una classe. Son variables compartides i direcament accessibles per totes les instàncies de la classe i la subclasse. Comença amb una lletra majúscula.
