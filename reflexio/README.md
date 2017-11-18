@@ -2,16 +2,20 @@
 
 - [Definició](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#definició)
 - [Fonaments](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#fonaments)
-	- [Reflexio](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexio-1)
+	- [Reflexió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexió-1)
 	- [Introspecció](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#introspecció)
 	- [Intercessió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#intercessió)
 	- [Sistemes reflexius](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#sistemes-reflexius)
 	- [Reflexió estructural](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexió-estructural)
 	- [Reflexió de comportament](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexió-de-comportament)
+
 - [Reflexió en Smalltalk](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexió-en-smalltalk)
-	- [Les Mestaclasses en 7 parts](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#les-mestaclasses-en-7-parts)
-	- [Classes Indexades i Variables d’Instància](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#classes-indexades-i-variables-dinstància)
-	- [Variables de class-instància](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#variables-de-classe-instància)
+	- [Pròleg](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#pròleg)
+		- [Les Mestaclasses en 7 parts](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#les-mestaclasses-en-7-parts)
+		- [Classes Indexades i Variables d’Instància](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#classes-indexades-i-variables-dinstància)
+		- [Variables de class-instància](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#variables-de-classe-instància)
+		- [Variables de class](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#variables-de-classe)
+	- [Reflexió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexió-2)
 
 ## Definició
 
@@ -130,11 +134,13 @@ La *reflexió estructural* i *de comportament* determinen **quin tipus d'accés*
 
 ## Reflexió en Smalltalk
 
-### Les *Mestaclasses* en 7 parts
+### Pròleg
 
-#### 1. Tot objecte és instància d’una classe
+#### Les *Mestaclasses* en 7 parts
 
-#### 2. Tota classe hereta eventualment d’Object
+##### 1. Tot objecte és instància d’una classe
+
+##### 2. Tota classe hereta eventualment d’Object
 
 Tot és un objecte. La classe de cada objecte hereta d'*Object*
 
@@ -144,7 +150,7 @@ les seves superclasses, fins arribar a *Object*.
 
 *Object* representa el comportament comú a tots els objectes (com la gestió d'errors, per exemple). Totes les classes haurien d'heretar d'*Object*.
 
-#### 3. Tota classe és instància d’una metaclasse
+##### 3. Tota classe és instància d’una metaclasse
 
 Com a Smalltalk tot és un objecte, les **classes també son objectes**. Cada classe *X* és l'única instància de la seva *metaclasse* anomenada *X class*.
 
@@ -154,35 +160,35 @@ Les *metaclasses* es crean quan es crea un classes de forma implícita. Les *met
 
 Per accedir a la *metaclasse* d'una classe s'ha d'activar el *class side* al Pharo.
 
-#### 4. La jerarquia de metaclasses és equivalent a la jerarquia de classes
+##### 4. La jerarquia de metaclasses és equivalent a la jerarquia de classes
 
 ![](./metaclasses01.png)
 
-#### 5. Tota metaclasse hereta de Class i Behavior
+##### 5. Tota metaclasse hereta de Class i Behavior
 
 ![](./metaclasses02.png)
 
-##### Behavior
+###### Behavior
 
 És el mínim estat necessari pels objectes que tenen instancies. Té l'interfície bàsica pel compilador.
 
-##### ClassDescription
+###### ClassDescription
 
 Afageix algunes utilitats a *Behavior*. És una classe abstracte, les utilitats que proporciona estan pensades per *Class* i *Metaclass*.
 
-##### Class
+###### Class
 
 Representa el comportament comú de totes les classes (com, compilació, emmagatzematge de mètodes, variables d'instancia, etc).
 
-#### 6. Tota metaclass és instància de Metaclass
+##### 6. Tota metaclass és instància de Metaclass
 
 ![](./metaclasses03.png)
 
-##### Metaclass
+###### Metaclass
 
 Representa el comportament comú de totes les *metaclasses* 
 
-#### 7. La metaclasse de Metaclass és instància de Metaclass
+##### 7. La metaclasse de Metaclass és instància de Metaclass
 
 ![](./metaclasses04.png)
 
@@ -212,7 +218,7 @@ MetaclassHierarchyTest >> testHierarchy
     self assert: Metaclass class class = Metaclass
 ```
 
-### Classes Indexades i Variables d’Instància
+#### Classes Indexades i Variables d’Instància
 
 Tenim dues maneres de representar objectes
 *Variables d’Instància* per utilitzar-los, amb nom o indexades
@@ -234,7 +240,7 @@ Una **variable indexada** s'afegeix implícitament a la llista de **variables d�
 
 Les subclasses d'una classe indexable han de ser també indexades
 
-#### IndexedObject
+##### IndexedObject
 
 Declaració de la classe:
 
@@ -256,11 +262,11 @@ Exemple d'us:
 
 [Implementació](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/ClassesIndexades.package/IndexedObject.class)
 
-### Variables de classe-instància
+#### Variables de classe-instància
 
 Les classes són objectes, instàncies de la seva metaclasse, així que poden tenir variables d'instància.
 
-#### Exemple: El patró Singleton
+##### Exemple: El patró Singleton
 
 Volem que la classe sigui singleton ([codi](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Patterns.package/Singleton.class)).
 
@@ -285,6 +291,11 @@ new    "You cannot create a new singleton object"
 uniqueInstance    "get the unique instance of this class"    uniqueInstance isNil       ifTrue: [ uniqueInstance := self basicNew initialize ].    ^ uniqueInstance
 ```
 
-### Variables de classe
+#### Variables de classe
 
 Serveixen per compartir informació entre instàncies d'una classe. Son variables compartides i direcament accessibles per totes les instàncies de la classe i la subclasse. Comença amb una lletra majúscula.
+
+### Reflexió
+
+
+
