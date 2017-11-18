@@ -11,6 +11,7 @@
 - [Reflexió en Smalltalk](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexió-en-smalltalk)
 	- [Les Mestaclasses en 7 parts](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#les-mestaclasses-en-7-parts)
 	- [Classes Indexades i Variables d’Instància](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#classes-indexades-i-variables-dinstància)
+	- [Variables de class-instància](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#variables-de-classe-instància)
 
 ## Definició
 
@@ -255,8 +256,51 @@ Exemple d'us:
 
 [Implementació](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/ClassesIndexades.package/IndexedObject.class)
 
-### Variables de class-instància
+### Variables de classe-instància
 
 Les classes són objectes, instàncies de la seva metaclasse, així que poden tenir variables d'instància.
 
-Exemple: El patró Singleton
+#### Exemple: El patró Singleton
+
+Volem que la classe sigui singleton.
+
+```smalltalk
+Object subclass: #Singleton    instanceVariableNames: ''    classVariableNames: ''    category: 'Patterns'
+```
+
+I al class side (metaclasse):
+
+```smalltalk
+Singleton class    instanceVariableNames: 'uniqueInstance'
+```
+
+Ara toca controlar la creació de lobjecte *Singleton* i l'access a *uniqueInstance*:
+
+```smalltalk
+new    "You cannot create a new singleton object"
+    self error: 'Use uniqueInstance to get the unique instance of this object'
+```
+
+```smalltalk
+uniqueInstance    "get the unique instance of this class"    uniqueInstance isNil       ifTrue: [ uniqueInstance := self basicNew initialize ].    ^ uniqueInstance
+```
+
+Això en Java seria:
+
+```java
+public class Singleton {
+    
+    private static Singleton uniqueInstance = null;
+    
+    private Singleton() {}
+    
+    public static Singleton getUniqueInstance() {
+        if (uniqueInstance == null) {
+            uniqueInstance = new Singleton();
+        }
+        return uniqueInstance;
+    }
+    
+}
+```
+
