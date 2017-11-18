@@ -10,7 +10,7 @@
 	- [Reflexió de comportament](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexió-de-comportament)
 - [Reflexió en Smalltalk](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexió-en-smalltalk)
 	- [Les Mestaclasses en 7 parts](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#les-mestaclasses-en-7-parts)
-	- [Classes Indexades i Variables d’Instància](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#classes-indexades-i-variables-d-instància)
+	- [Classes Indexades i Variables d’Instància](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#classes-indexades-i-variables-dinstància)
 
 ## Definició
 
@@ -132,14 +132,18 @@ La *reflexió estructural* i *de comportament* determinen **quin tipus d'accés*
 ### Les *Mestaclasses* en 7 parts
 
 #### 1. Tot objecte és instància d’una classe
-#### 2. Tota classe hereta eventualment d’Object
+
+#### 2. Tota classe hereta eventualment d’Object
 
 Tot és un objecte. La classe de cada objecte hereta d'*Object*
 
-Quan un objecte rep un missatge, el mètode es buscaal diccionari de mètodes de la seva classe, i, si cal, ales seves superclasses, fins arribar a *Object*.
+Quan un objecte rep un missatge, el mètode es busca
+al diccionari de mètodes de la seva classe, i, si cal, a
+les seves superclasses, fins arribar a *Object*.
 
 *Object* representa el comportament comú a tots els objectes (com la gestió d'errors, per exemple). Totes les classes haurien d'heretar d'*Object*.
-#### 3. Tota classe és instància d’una metaclasse
+
+#### 3. Tota classe és instància d’una metaclasse
 
 Com a Smalltalk tot és un objecte, les **classes també son objectes**. Cada classe *X* és l'única instància de la seva *metaclasse* anomenada *X class*.
 
@@ -148,10 +152,12 @@ Les *metaclasses* es crean quan es crea un classes de forma implícita. Les *met
 ![](./metaclasses00.png)
 
 Per accedir a la *metaclasse* d'una classe s'ha d'activar el *class side* al Pharo.
-#### 4. La jerarquia de metaclasses és equivalent a la jerarquia de classes
+
+#### 4. La jerarquia de metaclasses és equivalent a la jerarquia de classes
 
 ![](./metaclasses01.png)
-#### 5. Tota metaclasse hereta de Class i Behavior
+
+#### 5. Tota metaclasse hereta de Class i Behavior
 
 ![](./metaclasses02.png)
 
@@ -166,19 +172,43 @@ Afageix algunes utilitats a *Behavior*. És una classe abstracte, les utilitats 
 ##### Class
 
 Representa el comportament comú de totes les classes (com, compilació, emmagatzematge de mètodes, variables d'instancia, etc).
-#### 6. Tota metaclass és instància de Metaclass
+
+#### 6. Tota metaclass és instància de Metaclass
 
 ![](./metaclasses03.png)
 
 ##### Metaclass
 
 Representa el comportament comú de totes les *metaclasses* 
-#### 7. La metaclasse de Metaclass és instància de Metaclass
+
+#### 7. La metaclasse de Metaclass és instància de Metaclass
 
 ![](./metaclasses04.png)
 
 ```smalltalk
-MetaclassHierarchyTest >> testHierarchy    "The class hierarchy"    self assert: SnakeSquare superclass = BoardSquare.    self assert: BoardSquare superclass = Object.    self assert: Object superclass superclass = nil.    "The parallel metaclass hierarchy"    self assert: SnakeSquare class name = 'SnakeSquare class'.    self assert: SnakeSquare class superclass = BoardSquare class.    self assert: BoardSquare class superclass = Object class.    self assert: Object class superclass superclass = Class.    self assert: Class superclass = ClassDescription.    self assert: ClassDescription superclass = Behavior.    self assert: Behavior superclass = Object.    "The Metaclass hierarchy"    self assert: SnakeSquare class class = Metaclass.    self assert: BoardSquare class class = Metaclass.    self assert: Object class class = Metaclass.    self assert: Class class class = Metaclass.    self assert: ClassDescription class class = Metaclass.    self assert: Behavior class class = Metaclass.    self assert: Metaclass superclass = ClassDescription.    "The fixpoint"    self assert: Metaclass class class = Metaclass
+MetaclassHierarchyTest >> testHierarchy
+    "The class hierarchy"
+    self assert: SnakeSquare superclass = BoardSquare.
+    self assert: BoardSquare superclass = Object.
+    self assert: Object superclass superclass = nil.
+    "The parallel metaclass hierarchy"
+    self assert: SnakeSquare class name = 'SnakeSquare class'.
+    self assert: SnakeSquare class superclass = BoardSquare class.
+    self assert: BoardSquare class superclass = Object class.
+    self assert: Object class superclass superclass = Class.
+    self assert: Class superclass = ClassDescription.
+    self assert: ClassDescription superclass = Behavior.
+    self assert: Behavior superclass = Object.
+    "The Metaclass hierarchy"
+    self assert: SnakeSquare class class = Metaclass.
+    self assert: BoardSquare class class = Metaclass.
+    self assert: Object class class = Metaclass.
+    self assert: Class class class = Metaclass.
+    self assert: ClassDescription class class = Metaclass.
+    self assert: Behavior class class = Metaclass.
+    self assert: Metaclass superclass = ClassDescription.
+    "The fixpoint"
+    self assert: Metaclass class class = Metaclass
 ```
 
 ### Classes Indexades i Variables d’Instància
