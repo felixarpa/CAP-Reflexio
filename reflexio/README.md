@@ -8,6 +8,9 @@
 	- [Sistemes reflexius](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#sistemes-reflexius)
 	- [Reflexió estructural](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexió-estructural)
 	- [Reflexió de comportament](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexió-de-comportament)
+- [Reflexió en Smalltalk](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#reflexió-en-smalltalk)
+	- [Les Mestaclasses en 7 parts](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#les-mestaclasses-en-7-parts)
+	- [Classes Indexades i Variables d’Instància](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio#classes-indexades-i-variables-d-instància)
 
 ## Definició
 
@@ -175,5 +178,49 @@ Representa el comportament comú de totes les *metaclasses*
 ![](./metaclasses04.png)
 
 ```smalltalk
-MetaclassHierarchyTest >> testHierarchy	"The class hierarchy"	self assert: SnakeSquare superclass = BoardSquare.	self assert: BoardSquare superclass = Object.	self assert: Object superclass superclass = nil.	"The parallel metaclass hierarchy"	self assert: SnakeSquare class name = 'SnakeSquare class'.	self assert: SnakeSquare class superclass = BoardSquare class.	self assert: BoardSquare class superclass = Object class.	self assert: Object class superclass superclass = Class.	self assert: Class superclass = ClassDescription.	self assert: ClassDescription superclass = Behavior.	self assert: Behavior superclass = Object.	"The Metaclass hierarchy"	self assert: SnakeSquare class class = Metaclass.	self assert: BoardSquare class class = Metaclass.	self assert: Object class class = Metaclass.	self assert: Class class class = Metaclass.	self assert: ClassDescription class class = Metaclass.	self assert: Behavior class class = Metaclass.	self assert: Metaclass superclass = ClassDescription.	"The fixpoint"	self assert: Metaclass class class = Metaclass
+MetaclassHierarchyTest >> testHierarchy    "The class hierarchy"    self assert: SnakeSquare superclass = BoardSquare.    self assert: BoardSquare superclass = Object.    self assert: Object superclass superclass = nil.    "The parallel metaclass hierarchy"    self assert: SnakeSquare class name = 'SnakeSquare class'.    self assert: SnakeSquare class superclass = BoardSquare class.    self assert: BoardSquare class superclass = Object class.    self assert: Object class superclass superclass = Class.    self assert: Class superclass = ClassDescription.    self assert: ClassDescription superclass = Behavior.    self assert: Behavior superclass = Object.    "The Metaclass hierarchy"    self assert: SnakeSquare class class = Metaclass.    self assert: BoardSquare class class = Metaclass.    self assert: Object class class = Metaclass.    self assert: Class class class = Metaclass.    self assert: ClassDescription class class = Metaclass.    self assert: Behavior class class = Metaclass.    self assert: Metaclass superclass = ClassDescription.    "The fixpoint"    self assert: Metaclass class class = Metaclass
 ```
+
+### Classes Indexades i Variables d’Instància
+
+Tenim dues maneres de representar objectes
+*Variables d’Instància* per utilitzar-los, amb nom o indexades
+
+- Amb **nom** `name` de `GamePlayer.class`
+- **Indexada** `#(Jack Jill) at: 1` seria "Jack".
+
+Des del punt de vista més a baix nivell seria:
+
+- Objectes amb referències a altres objectes (*pointer*)
+- Objectes amb arrays de bytes (*word*, *long*)
+
+Fem la diferència per raons d'eficiència: emmagatzemar arrays de *bytes* (com les strings de **C**) és més eficient que emmagatzemar un array de referències, cada una d’elles apuntant a un sol *byte* i ocupant una *word*
+
+Una **variable indexada** s'afegeix implícitament a la llista de **variables d’instància**.
+
+- Només hi ha una variable indexada (d'instància) per classe
+- Accés amb `#at:` i amb `#at:put:`
+
+Les subclasses d'una classe indexable han de ser també indexades
+
+#### IndexedObject
+
+Declaració de la classe:
+
+```smalltalk
+Object variableSubclass: #IndexedObject
+    instanceVariableNames: ''
+    classVariableNames: ''
+    category: 'ClassesIndexades'
+```
+
+Exemple d'us:
+
+```smalltalk
+(IndexedObject new: 2)
+    at: 1 put: 'Fèlix';
+    at: 2 put: 'Arribas';
+    at: 1. " Print it => 'Fèlix' "
+```
+
+[Implementació](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/ClassesIndexades.package/IndexedObject.class)
