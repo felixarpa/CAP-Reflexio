@@ -1,0 +1,14 @@
+{
+	"category" : "Patterns",
+	"classinstvars" : [
+		"uniqueInstance" ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "Singleton",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

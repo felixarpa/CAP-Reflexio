@@ -254,3 +254,9 @@ Exemple d'us:
 ```
 
 [Implementació](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/ClassesIndexades.package/IndexedObject.class)
+
+### Variables de class-instància
+
+Les classes són objectes, instàncies de la seva metaclasse, així que poden tenir variables d'instància.
+
+Exemple: El patró Singleton
