@@ -5,7 +5,7 @@
 Abans de crear el metode a la classe integer `euro` per crear instancies de Pasta.
 
 ```smalltalk
-setUp    Pasta new moneda: 'EUR'; quantitat: 5.    Pasta new moneda: 'EUR'; quantitat: 10.    Pasta new moneda: 'EUR'; quantitat: 20.
+setUp    eur5 := Pasta new moneda: 'EUR'; quantitat: 5.    eur10 := Pasta new moneda: 'EUR'; quantitat: 10.    eur20 := Pasta new moneda: 'EUR'; quantitat: 20.
 ```
 
 A la classe integer afegim el nou metode:
