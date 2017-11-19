@@ -624,7 +624,7 @@ El que fa aquest codi és crear una continuació amb el context actual i asignar
 
 Allà és quan hi ha el canvi de context. Com he explicat abans el mètode `#value: anObject` recupera el context que teniem guardat, el converteix en l'actual i retorna `anObject`. Així doncs tornem a la linia on li assignavem `Continuation new ...` a `lletra` i retornem `$f`. Al convertir `thisContext` en el context actual l'execucó segueix a partir d'alla. Entrarà al bloc `ifTrue` i mostrarà _és la lletra f_ i _f_.
 
-##### `#value: anObject`
+##### `#value: anObject`
 
 ```smalltalk
 value: anObject
