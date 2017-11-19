@@ -425,15 +425,146 @@ theLoop := [
 theLoop value.
 ```
 
-**BlockWithExit** és una variant de **BlockClosure** que permet sortir de la closure cridant exit. En aquest codi es crea una llista de 1000 elements amb un nombre aleatori entre 0 i 1000. En el bloc de `theLoop` s'itera per tota la llista (`coll do: [ :each |`), es mostra el valor (`Transcript show: each asString; cr.`) i si el valor és menor de 100 `(each < 100) ifTrue:` es surt del bloc (`[theLoop exit]`).
+**BlockWithExit** és una variant de **BlockClosure** que permet sortir de la closure cridant exit. En aquest codi es crea una llista de 1000 elements amb un nombre aleatori entre 0 i 1000. En el bloc de `theLoop` s'itera per tota la llista (`coll do: [ :each |`), es mostra el valor (`Transcript show: each asString; cr.`) i si el valor és menor de 100 (`(each < 100) ifTrue:`) es surt del bloc (`[theLoop exit]`).
 
 Com el bloc que es crea és el per defecte de Smalltalk (`BlockClosure`) afegim el metode `#withExit` que crea un `BlockWithExit`.
 
+### Intercessió
 
+#### Sobreescriure `#doesNotUnderstand:`
 
+Cal crear un objecte mínim. Embolica un objecte normal (*wrap*), no enten quasi res i redefineix `#doesNotUnerstand:`. És superclasse de `nil` o `ProtoObject` per no tenir la implementació normal de `#doesNotUnerstand:`. Finalment utilitxa el metode `#become:` per substituir i controlar l'objecte a controlar.
 
+```smalltalk
+ProtoObject subclass: #LoggingProxy
+    instanceVariableNames: 'subject invocationCount'
+    classVariableNames: ''
+    category: 'Reflexio'
+```
 
+La idea es col·locar aquest objecte entre el missatge i l'objecte receptor (`receiver`).
 
+```smalltalk
+initialize
+    invocationCount := 0.
+    subject := self.
+```
+
+La variable d'instància `subject` serà on enviarem el missatge quan l'objecte no l'entengui:
+
+```smalltalk
+doesNotUnderstand: aMessage 
+    Transcript show: 'performing ', aMessage printString; cr.
+    invocationCount := invocationCount + 1.
+    ^ aMessage sendTo: subject
+```
+
+##### Exemple
+
+```smalltalk
+testDelegation
+    | point proxy |
+    point := 1@2.
+    proxy := LoggingProxy new.
+    proxy become: point.
+
+    self assert: point class = LoggingProxy.
+    self assert: proxy class = Point.
+
+    self assert: point invocationCount = 0.
+    
+    self assert: point + (3@4) = (4@6).
+    self assert: point invocationCount = 1.
+```
+
+Quan `point` es transforma en el proxy només sap fer `#doesNotUnderstand`. Ja no és `(1@2)`, el proxy passa ser-ho. Quan se li envia el missatge `#+` a `point`, ja no l'entén i executa `#doesNotUnderstand`. A `#doesNotUnderstant`, point escriu pel `Transcrip`, incrementa el `invocationCount` i finalment envia el missatge al `subject`.
+
+La variable `subject` s'ha inicialitzat amb `self`, és a dir, `proxy`. `proxy` s'ha transformat en el punt `point`, ho podem veure en el primer `#assert:`. Aixi que envia el missatge a `proxy`, que ara és el punt `(1@2)` i si que l'enten.
+
+##### Getters "on demand"
+
+És pot sobreescriure el mètode `#doesNotUnderstand` per generar codi dinàmicament. Un cop la classe reb un missatge que no entén comprova si alguna de les seves variables d'instància té el nom del missatge, és a dir, s'està demanant pero com no te *getter* dóna error. Si la variable existeix compila `#nom ^ #nom` i l'executa. Si no existeix continua amb l'execució normal de `#doesNotUnderstand`.
+
+```smalltalk
+doesNotUnderstand: aMessage 
+    | messageName |
+    messageName := aMessage selector asString.
+    (self class instVarNames includes: messageName)
+        ifTrue: [self class compile: messageName , String cr , ' ^ ' , messageName.
+            ^ aMessage sendTo: self].
+    super doesNotUnderstand: aMessage
+```
+
+#### Classes anònimes
+
+Consisteix en crear un instancia de `Behavior`, definir els mètodes i posar-la entre la instància i la classe. Una classe anònima permet un control sel·lectiu, no dóna problemes amb el `self`, és eficient i dóna transparencia a l'usuari.
+
+```smalltalk
+    | casseAnonima set |
+    casseAnonima := Behavior new.
+    casseAnonima superclass: Set;
+        setFormat: Set format;
+    
+    casseAnonima compile:
+        'add: anObject
+            Transcript show: "adding ", anObject printString; cr.
+            ^ super add: anObject'.
+
+    set := Set new.
+    set add: 1.
+    
+    set primitiveChangeClassTo: casseAnonima new.
+    set add: 2.
+```
+
+El primer `#add` és normal, el segón és el compilat en el codi i mostra "*adding 2*" pel Transcript.
+
+#### Method Wrappers
+
+La idea és poder executar codi abans i despres de que s'executi el mètode que s'invoca. Es substitueix el mètode per un objecte que implementi `#run:with:in:`.
+
+```smalltalk
+Object subclass: #LoggingMethodWrapper
+    instanceVariableNames: 'method reference invocationCount'
+    classVariableNames: ''
+    category: 'Reflexio'
+```
+
+```smalltalk
+initializeOn: aCompiledMethod
+    method := aCompiledMethod.
+    reference := aCompiledMethod methodReference.
+    invocationCount := 0
+```
+
+```smalltalk
+run: aSelector with: anArray in: aReceiver
+    invocationCount := invocationCount + 1.
+    ^ aReceiver withArgs: anArray executeMethod: method
+```
+
+Apart d'això tenim el mètode `#install` (i `#uninstall`, que és molt similar) que fa el *wrap* del mètode.
+
+```smalltalk
+install
+    reference actualClass methodDictionary at: reference methodSymbol put: self
+```
+
+Exemple d'execució:
+
+```smalltalk
+logger := LoggingMethodWrapper on: Integer>>#factorial.
+logger invocationCount. "0"
+5 factorial.
+logger invocationCount. "0"
+logger install.
+[ 5 factorial ] ensure: [logger uninstall].
+logger invocationCount. "6"
+10 factorial.
+logger invocationCount. "6"
+```
+
+Al fer *wrap* d'un mètode totes les instàncies queden controlades, només s'intercepten els missatges conegurs (es pot controlar només un sol mètode) i no ca compilar per instal·lar.
 
 
 
