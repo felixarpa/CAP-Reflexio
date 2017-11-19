@@ -650,13 +650,11 @@ callcc: aBlock
     ^ self currentDo: aBlock
 ```
 
-La idea d'aquest mètode és capturar el context actual en una instancia i passar-lo com a paràmetre a `aBlock` en evaluar-lo.
+La idea d'aquest mètode és capturar el context actual en una instància i passar-li una continuació d'aquest context com a paràmetre a `aBlock` quan és evaluat.
 
-**WHAT!?**
+*WHAT!?...* Exacte, que?
 
-Exacte, que?
-
-`#currentDo: aBlock` evalua el block donat amb el resultat de `self fromContext: thisContext sender`. És el `sender` perque sinó seria aquella mateixa linea del `currentDo` i no és el que volem. I ja sabem que fa `#initializeFromContext:`.
+`#currentDo: aBlock` evalua el block donat amb el resultat de `self fromContext: thisContext sender`, és a dir, una continuació del context del `sender` (és el `sender` perque si no el context seria aquella mateixa linea del `currentDo` i no és el que volem). `fromContext` crida a `#initializeFromContext:`, i ja sabem que fa.
 
 ```smalltalk
 currentDo: aBlock
@@ -675,7 +673,17 @@ Recapitulem: al invocar `callcc` amb un bloc *B*, evaluem el bloc *B* amb la con
 ```smalltalk
 | x |
 x := Continuation callcc: [ :cc | cc value: true ].
-x
+x "print => true"
+```
+
+O similar:
+
+```smalltalk
+| x |
+x := Continuation callcc: [ :cc | cc ].
+(x class = Continuation) "aquest ifTrue està per evitar MessageNotUnderstood: True >>value:"
+    ifTrue: [ x value: true. ].
+x "print => true"
 ```
 
 x és una continuació que serà evaluada amb el bloc `[ :cc | cc value: true ]`. Acte seguit evaluem x (o `^ x`), això ens torna a la linia anteror com si fessim `x := [ :cc | cc value: true ] value: [ ^ x ]`, que és el mateix que `x := [ ^ x ] value: true` que és true. Totes aquestes operacions s'han fet en el context de `x := ...`.
