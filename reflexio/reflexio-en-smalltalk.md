@@ -650,7 +650,7 @@ callcc: aBlock
     ^ self currentDo: aBlock
 ```
 
-La idea d'aquest mètode és capturar el context actual en una instancia i passar-lo com a paràmetre a `aBlock` en avaluar-lo.
+La idea d'aquest mètode és capturar el context actual en una instancia i passar-lo com a paràmetre a `aBlock` en evaluar-lo.
 
 **WHAT!?**
 
