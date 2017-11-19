@@ -7,7 +7,14 @@
 	- [Variables de class](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md#variables-de-classe)
 - [Reflexió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md#reflexió)
 	- [Introspecció](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md#introspecció)
+        - [Inspecció d'objectes](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#inspecció-dobjectes)
+        - [Consultar el codi](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#consultar-el-codi)
+        - [Accedit els contexts d'execució](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#accedir-els-contexts-dexecució)
 	- [Intercessió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md#intercessió)
+        - [Sobreescriure #doesNotUnderstand](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#sobreescriure-doesnotunderstand)
+        - [Classes Anònimes](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#classes-anònimes)
+        - [Method Wrappers](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#method-wrappers)
+        - [Continuacions](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#continuacions)
 
 ## Pròleg
 
