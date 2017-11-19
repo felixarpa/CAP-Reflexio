@@ -71,5 +71,12 @@ Ara tornem al **Pharo** per obrir el repositori i poder accedir al codi.
 
 ## Contingut
 
-- [Pasta](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Pasta.package/Pasta.class)
-- [PastaTest](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Pasta.package/PastaTest.class)
+- [Introducció a Smalltalk]()
+	- [Pasta](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Pasta.package/Pasta.class)
+	- [PastaTest](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Pasta.package/PastaTest.class)
+
+- [Reflexió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio)
+	- [Introducció](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/introduccio.md)
+	- [Reflexió en Smalltalk](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md)
+	- [Exercicis de reflexió en Smalltalk]()
+	- [Reflexió en Java]()
