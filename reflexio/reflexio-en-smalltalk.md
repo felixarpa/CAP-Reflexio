@@ -359,7 +359,7 @@ HaltDemo new foo. " 'foo' "
 HaltDemo new fighters. " fa Halt"
 ```
 
-Halt:
+Halt
 
 ```
 HaltDemo        haltIf:
@@ -367,7 +367,7 @@ HaltDemo        foo
 HaltDemo        fighters
 ```
 
-###### BlockWithExit
+##### BlockWithExit
 
 ```smalltalk
 Object subclass: #BlockWithExit
@@ -500,21 +500,21 @@ doesNotUnderstand: aMessage
 Consisteix en crear un instancia de `Behavior`, definir els mètodes i posar-la entre la instància i la classe. Una classe anònima permet un control sel·lectiu, no dóna problemes amb el `self`, és eficient i dóna transparencia a l'usuari.
 
 ```smalltalk
-    | casseAnonima set |
-    casseAnonima := Behavior new.
-    casseAnonima superclass: Set;
-        setFormat: Set format;
-    
-    casseAnonima compile:
-        'add: anObject
-            Transcript show: "adding ", anObject printString; cr.
-            ^ super add: anObject'.
+| casseAnonima set |
+casseAnonima := Behavior new.
+casseAnonima superclass: Set;
+    setFormat: Set format.
 
-    set := Set new.
-    set add: 1.
-    
-    set primitiveChangeClassTo: casseAnonima new.
-    set add: 2.
+casseAnonima compile:
+    'add: anObject
+        Transcript show: ''adding '', anObject printString; cr.
+        ^ super add: anObject'.
+
+set := Set new.
+set add: 1.
+
+set primitiveChangeClassTo: casseAnonima new.
+set add: 2.
 ```
 
 El primer `#add` és normal, el segón és el compilat en el codi i mostra "*adding 2*" pel Transcript.
@@ -564,7 +564,141 @@ logger invocationCount. "6"
 logger invocationCount. "6"
 ```
 
-Al fer *wrap* d'un mètode totes les instàncies queden controlades, només s'intercepten els missatges conegurs (es pot controlar només un sol mètode) i no ca compilar per instal·lar.
+Al fer *wrap* d'un mètode totes les instàncies queden controlades, només s'intercepten els missatges conegurs (es pot controlar només un sol mètode) i no cal compilar per instal·lar.
+
+#### Continuacions
+
+A Pharo 3.0 tenim la classe `Continuation` que serveix per guardar la pila d'execució en un moment donat.
+
+```smalltalk
+Object subclass: #Continuation
+    instanceVariableNames: 'values'
+    classVariableNames: ''
+    category: 'Kernel-Methods'
+```
+
+Per instanciar aquesta classe cal fer servir `#initialitzeFromContex: aContext`. Aquesta funció guarda a la variable d'instància `values` la pila associada al context que es passa com a argument.
+
+```smalltalk
+initializeFromContext: aContext
+    | valueStream context |
+    valueStream := WriteStream on: (Array new: 20).
+    context := aContext.
+    [context notNil] whileTrue:
+        [valueStream nextPut: context.
+        1 to: context class instSize do: [:i | valueStream nextPut: (context instVarAt: i)].
+        1 to: context size do: [:i | valueStream nextPut: (context at: i)].
+        context := context sender].
+    values := valueStream contents
+```
+
+Quan cridem a inicialitzar una nova continuacio amb un context, a partir del context donat (`context := aContext.`) itera per la seva pila d'execució fin al final (`[context notNil] whileTrue: [` ... `context := context sender].`) i afageig el context (`valueStream nextPut: context.`) i les variables d'instància (`1 to: context class instSize do: [:i | valueStream nextPut: (context instVarAt: i)].`) i de classe (`1 to: context size do: [:i | valueStream nextPut: (context at: i)].`).
+
+
+La classe `Continuation` té un mètode anomenat `#value: anObject` que, donat un objecte, recupera el context que teniem guardat, el converteix en el context actual i retorna l'objecte `anObject` per poder continuar l'execució del context tot just restaurat.
+
+```smalltalk
+| lletra |
+lletra := Continuation new initializeFromContext: thisContext.
+(lletra = $f)
+    ifTrue:  [
+        Transcript show: 'és la lletra f' ; cr
+    ]
+    ifFalse: [
+        Transcript show: lletra ; cr.
+        lletra value: $f
+    ].
+Transcript show: lletra ; cr.
+```
+
+Si executem aquest codi el que sortirà pel Transcrip és:
+
+```
+a Continuation
+és la lletra f
+f
+```
+
+
+El que fa aquest codi és crear una continuació amb el context actual i asignar-li a `lletra`. Després comprova si `lletra` és la lletra f, obviament no ho és perque acabem de dir que és una continuació aixi que executa el bloc `ifFalse`. Dintre d'aquell bloc mostra pel Transcript _a Continuation_ i li dona el valor `$f` a la continuació `lletra`.
+
+Allà és quan hi ha el canvi de context. Com he explicat abans el mètode `#value: anObject` recupera el context que teniem guardat, el converteix en l'actual i retorna `anObject`. Així doncs tornem a la linia on li assignavem `Continuation new ...` a `lletra` i retornem `$f`. Al convertir `thisContext` en el context actual l'execucó segueix a partir d'alla. Entrarà al bloc `ifTrue` i mostrarà _és la lletra f_ i _f_.
+
+##### `#value: anObject`
+
+```smalltalk
+value: anObject
+    self terminate: thisContext.
+    self restoreValues.
+    thisContext swapSender: values first.
+    ^ anObject
+```
+
+Aquest mètode, primer de tot elimina el context actual, per tant deixem d'estar en el moment en que s'ha cridat `#value:`. Acte seguit recupera la pila del moment en que s'ha inicialitzat la continuació. Finalment diu que el context actual és el primer de la pila cargada i retorna el valor que se li ha passat al mètode.
+
+##### `#callcc: aBlock`
+
+```smalltalk
+callcc: aBlock
+    ^ self currentDo: aBlock
+```
+
+La idea d'aquest mètode és capturar el context actual en una instancia i passar-lo com a paràmetre a `aBlock` en avaluar-lo.
+
+**WHAT!?**
+
+Exacte, que?
+
+`#currentDo: aBlock` evalua el block donat amb el resultat de `self fromContext: thisContext sender`. És el `sender` perque sinó seria aquella mateixa linea del `currentDo` i no és el que volem. I ja sabem que fa `#initializeFromContext:`.
+
+```smalltalk
+currentDo: aBlock
+    ^ aBlock value: (self fromContext: thisContext sender)
+```
+
+```smalltalk
+fromContext: aStack
+    ^self new initializeFromContext: aStack
+```
+
+Recapitulem: al invocar `callcc` amb un bloc *B*, evaluem el bloc *B* amb la continuació resultant del context on es crida `callcc` (`thisContext sender`).
+
+###### Exemples de `#callcc: aBlock`
+
+```smalltalk
+| x |
+x := Continuation callcc: [ :cc | cc value: true ].
+x
+```
+
+x és una continuació que serà evaluada amb el bloc `[ :cc | cc value: true ]`. Acte seguit evaluem x (o `^ x`), això ens torna a la linia anteror com si fessim `x := [ :cc | cc value: true ] value: [ ^ x ]`, que és el mateix que `x := [ ^ x ] value: true` que és true. Totes aquestes operacions s'han fet en el context de `x := ...`.
+
+```smalltalk
+| x cont |
+x := Continuation callcc: [ :cc | cont := cc. false ].
+x ifFalse: [ cont value: true ].
+x
+```
+
+Aquest és similar, al crear la continuació, el bloc retorna fals. x és fals i a continuació és guarda a cont (`cont := cc.`). Al mirar si x és fals, s'evalua la continuació amb _true_ com a valor. Això ens fa tornar adalt, a `x := ...` i donar _true_.
+
+```smalltalk
+mentreCert: aBlock
+    "versió de whileTrue: implementada amb callcc:"
+    | cont |
+    cont := Continuation callcc: [ :cc | cc ].          
+    self value 
+        ifTrue:  [ aBlock value. 
+                   cont value: cont ]
+        ifFalse: [ ^ nil].
+
+```
+
+En aquest codi volem fer un bucle mentre el bloc `self` sigui cert. Així doncs, creem una **continuació que serà evaluada amb el bloc `[ :cc | cc ]`**. Després evaluem `self` (la condició del _whileTrue_), evaluem el bloc `aBlock` si és cert o sortim (amb `[ ^ nil ]`) si es fals. En cas de que sigui cert, després d'evaluar el bloc `aBlock`, **evaluem `cont`** amb `cont` com a valor. Això li passa `cont` al bloc `[ :cc | cc ]`. Aquest bloc retorna `cc`, el _value_ que li passis. Aixi que `cont` serà **la mateixa continuacó d'abans, que serà evaluada amb el bloc `[ :cc | cc ]`**. Tindrà el context d'aquell moment, l'execució continuarà desde aquell punt i tornarà a evaluar-se `self` com en un `whileTrue`.
+
+
+
+
 
 
 
