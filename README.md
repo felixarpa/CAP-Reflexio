@@ -42,6 +42,11 @@ Metacello new
     repository: 'github://dalehenrich/metacello-work:master/repository';
   onConflict: [:ex | ex allow];
     load.
+```
+
+I finalment:
+
+```smalltalk
 Metacello new
     baseline: 'FileTree';
     repository: 'github://dalehenrich/filetree:pharo3.0/repository';
