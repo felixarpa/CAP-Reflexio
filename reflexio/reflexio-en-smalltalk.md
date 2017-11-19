@@ -244,7 +244,7 @@ punt "(4@2)"
 
 També podem accedir a al *metainformació* (`Object >> #class`, `Object >> #identityHash`) I canviar-la (`Object >> #primitiveChangeClassTo:`, `ProtoObject >> #become:`, `Object >> #becomeForward:`).
 
-##### primitiveChangeClassTo
+###### primitiveChangeClassTo
 
 Canvia la classe de l'objecte receptor del missatge per la classe del objecte argument. Les dues classes tenen la mateixa estructura a les seves instancies. Per això quan creem el metode `thisIsATest` *browser* ho entén pero un nou *Browser* no.
 
@@ -263,7 +263,7 @@ testPrimitiveChangeClassTo
     self should: [ Browser new thisIsATest ] raise: MessageNotUnderstood.
 ```
 
-##### become
+###### become
 
 Intercanvia totes les referències d'un objecte a l'altre i vice-versa. `punt1` passa a ser `punt3` i `punt3` passa a ser `punt1`.
 
@@ -279,7 +279,7 @@ testBecome
     self assert: punt3 = (0@0).
 ```
 
-##### becomeForward
+###### becomeForward
 
 Intercanvia totes les referències d'un objecte a l'altre. `punt1` passa a ser `punt3`. `punt3` no canvia.
 
@@ -367,7 +367,7 @@ HaltDemo        foo
 HaltDemo        fighters
 ```
 
-##### BlockWithExit
+###### BlockWithExit
 
 ```smalltalk
 Object subclass: #BlockWithExit
@@ -459,7 +459,7 @@ doesNotUnderstand: aMessage
     ^ aMessage sendTo: subject
 ```
 
-##### Exemple
+###### Exemple
 
 ```smalltalk
 testDelegation
