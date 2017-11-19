@@ -1,0 +1,18 @@
+{
+	"class" : {
+		"example" : "jjddpp 10/18/2012 12:01",
+		"on:" : "jjddpp 10/8/2012 11:22" },
+	"instance" : {
+		"flushCache" : "jjddpp 10/8/2012 11:23",
+		"initializeOn:" : "jjddpp 10/8/2012 11:22",
+		"install" : "jjddpp 10/8/2012 11:23",
+		"invocationCount" : "jjddpp 10/8/2012 11:25",
+		"invocationCount:" : "jjddpp 10/8/2012 11:25",
+		"method" : "jjddpp 10/8/2012 11:25",
+		"method:" : "jjddpp 10/8/2012 11:25",
+		"methodClass:" : "jjddpp 10/8/2012 11:24",
+		"reference" : "jjddpp 10/8/2012 11:25",
+		"reference:" : "jjddpp 10/8/2012 11:25",
+		"run:with:in:" : "jjddpp 10/22/2014 19:31",
+		"selector:" : "jjddpp 10/8/2012 11:24",
+		"uninstall" : "jjddpp 10/8/2012 11:23" } }

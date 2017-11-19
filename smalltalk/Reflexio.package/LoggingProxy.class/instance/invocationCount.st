@@ -1,0 +1,3 @@
+accessing
+invocationCount
+	^ invocationCount

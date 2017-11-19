@@ -1,0 +1,16 @@
+{
+	"category" : "Reflexio",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"method",
+		"reference",
+		"invocationCount" ],
+	"name" : "LoggingMethodWrapper",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

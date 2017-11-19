@@ -1,0 +1,14 @@
+{
+	"category" : "Reflexio",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		 ],
+	"name" : "HaltDemo",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

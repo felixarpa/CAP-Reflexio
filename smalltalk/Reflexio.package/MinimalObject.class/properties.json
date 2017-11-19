@@ -1,0 +1,15 @@
+{
+	"category" : "Reflexio",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"subject",
+		"calls" ],
+	"name" : "MinimalObject",
+	"pools" : [
+		 ],
+	"super" : "ProtoObject",
+	"type" : "normal" }

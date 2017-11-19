@@ -1,0 +1,2 @@
+auxiliary
+selector: aSymbol

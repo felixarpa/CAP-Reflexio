@@ -1,0 +1,15 @@
+{
+	"category" : "Reflexio",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"x",
+		"y" ],
+	"name" : "DynamicAccessors",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

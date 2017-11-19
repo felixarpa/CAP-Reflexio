@@ -1,0 +1,15 @@
+{
+	"category" : "Reflexio",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "<historical>",
+	"instvars" : [
+		"block",
+		"exitBlock" ],
+	"name" : "BlockWithExit",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }

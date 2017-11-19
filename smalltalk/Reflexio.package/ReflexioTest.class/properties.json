@@ -1,0 +1,14 @@
+{
+	"category" : "Reflexio",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "ReflexioTest",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }
