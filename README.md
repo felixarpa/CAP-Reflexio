@@ -2,6 +2,19 @@
 
 Codi i apunts en markdown de la primera part de reflexió de l'assignatura Conceptes Avançats de Programació (CAP)
 
+## Contingut
+
+- [Introducció a Smalltalk]()
+	- [Pasta](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Pasta.package/Pasta.class)
+	- [PastaTest](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Pasta.package/PastaTest.class)
+
+- [Reflexió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio)
+	- [Introducció](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/introduccio.md)
+	- [Reflexió en Smalltalk](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md)
+	- [Continuacions](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#continuacions)
+	- [Exercicis de reflexió en Smalltalk]()
+	- [Reflexió en Java]()
+
 ## Entorn de treball
 
 ### Pharo 3.0 (macOS)
@@ -73,15 +86,3 @@ Ara tornem al **Pharo** per obrir el repositori i poder accedir al codi.
 2. Seleccionem `filetree://`.
 3. Escollim la carpeta `smalltalk/` d'aquest repositori clonat al vostre ordinador. Un cop acceptem s'obrirà una nova finestra amb nom *Repository: filtree://<path>/CAP-Reflexio/smalltalk* on apareixeran tots els paquets que he utilitzat aquest curs.
 4. Seleccioneu els paquets que vulgueu i doneu-li a `Load` perquè apareguin al *Nautilus*.
-
-## Contingut
-
-- [Introducció a Smalltalk]()
-	- [Pasta](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Pasta.package/Pasta.class)
-	- [PastaTest](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Pasta.package/PastaTest.class)
-
-- [Reflexió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio)
-	- [Introducció](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/introduccio.md)
-	- [Reflexió en Smalltalk](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md)
-	- [Exercicis de reflexió en Smalltalk]()
-	- [Reflexió en Java]()
