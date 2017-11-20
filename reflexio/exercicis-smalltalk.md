@@ -1,6 +1,6 @@
 # Exercicis de reflexió amb Smalltalk
 
-#### Fes un programa (per ser executat al workspace) que, donat un símbol que representarà el selector d'un mètode, generi un browser amb tots els mètodes que l'utilitzen dins el seu codi font.
+#### 1. Fes un programa (per ser executat al workspace) que, donat un símbol que representarà el selector d'un mètode, generi un browser amb tots els mètodes que l'utilitzen dins el seu codi font.
 
 ```smalltalk
 | símbol |
@@ -22,17 +22,17 @@ Pots treure els comentaris dels transcript i comentar el Nautilus per veure l'ob
 
 Segurament hi ha alguna manera més eficient de fer-ho.
 
-#### Per quina raó s'avalua a true la següent expressió?
+#### 2. Per quina raó s'avalua a true la següent expressió?
 
 `Class class class class == Class class class class class class`
 
 `Class class class` és `Metaclass`. A `Metaclass`, al demanar la classe, ens donarà `Metaclass class`, i al demanar la classe a `Metaclass class` ens dona `Metaclass`. Aqui ja entrem en bucle, així que si demanes `class` de dos en dos sempre donarà el mateix.
 
-#### Els mètodes `#new` i `#new:` són mètodes d'instància de la classe Behavior, tot I que és habitual que se'ls redefineixi en altres classes. Malgrat són mètodes d'instància de Behavior, usualment es redefineixen com a mètodes de classe. Per exemple, utilitzem `Array new: 5` per crear instàncies de la classe Array, i el missatge `#new:` l'estem enviant a la classe Array. Les redefinicions, doncs, s'acostumen a fer en el Class side. Això aparentment viola la "regla" que diu que en l'herència els mètodes d'instància s'hereten en l'instance side i els mètodes de classe s'hereten en el Class side. Expliqueu per quina raó no hi ha res d'incorrecte en el fet de redefinir `#new` i `#new:` en el Class side.
+#### 3. Els mètodes `#new` i `#new:` són mètodes d'instància de la classe Behavior, tot I que és habitual que se'ls redefineixi en altres classes. Malgrat són mètodes d'instància de Behavior, usualment es redefineixen com a mètodes de classe. Per exemple, utilitzem `Array new: 5` per crear instàncies de la classe Array, i el missatge `#new:` l'estem enviant a la classe Array. Les redefinicions, doncs, s'acostumen a fer en el Class side. Això aparentment viola la "regla" que diu que en l'herència els mètodes d'instància s'hereten en l'instance side i els mètodes de classe s'hereten en el Class side. Expliqueu per quina raó no hi ha res d'incorrecte en el fet de redefinir `#new` i `#new:` en el Class side.
 
 Doncs perque el class side es la metaclasse, i totes les metaclasses hereten de la classe Class, aquesta hereta de ClassDescription i aquesta de Behavior. Aixi que totes les metaclasses acaben heretan de Behavior.
 
-#### Expliqueu com un bloc pot cridar-se a ell mateix (aconseguint així blocs sense nom, anònims, però recursius). No podeu suposar que el bloc ha estat assignat a una variable. Feu-ho servir per fer un bloc que calculi el factorial.
+#### 4. Expliqueu com un bloc pot cridar-se a ell mateix (aconseguint així blocs sense nom, anònims, però recursius). No podeu suposar que el bloc ha estat assignat a una variable. Feu-ho servir per fer un bloc que calculi el factorial.
 
 ```smalltalk
 | fatorial |
