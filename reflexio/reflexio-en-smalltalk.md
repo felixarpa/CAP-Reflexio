@@ -14,7 +14,7 @@
         - [Sobreescriure #doesNotUnderstand](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#sobreescriure-doesnotunderstand)
         - [Classes Anònimes](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#classes-anònimes)
         - [Method Wrappers](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#method-wrappers)
-        - [Continuacions](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#continuacions)
+- [Continuacions](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#continuacions)
 
 ## Pròleg
 
@@ -526,6 +526,17 @@ set add: 2.
 
 El primer `#add` és normal, el segón és el compilat en el codi i mostra "*adding 2*" pel Transcript.
 
+> Per que aquest codi funcioni cal crear aquests dos nous mètodes a la classe `TBehavior`
+
+```smalltalk
+basicLocalSelectors
+	^nil
+```
+
+```smalltalk
+basicLocalSelectors: aSetOrNil
+	self subclassResponsibility
+```
 #### Method Wrappers
 
 La idea és poder executar codi abans i despres de que s'executi el mètode que s'invoca. Es substitueix el mètode per un objecte que implementi `#run:with:in:`.
@@ -573,7 +584,7 @@ logger invocationCount. "6"
 
 Al fer *wrap* d'un mètode totes les instàncies queden controlades, només s'intercepten els missatges conegurs (es pot controlar només un sol mètode) i no cal compilar per instal·lar.
 
-#### Continuacions
+## Continuacions
 
 A Pharo 3.0 tenim la classe `Continuation` que serveix per guardar la pila d'execució en un moment donat.
 
@@ -631,7 +642,7 @@ El que fa aquest codi és crear una continuació amb el context actual i asignar
 
 Allà és quan hi ha el canvi de context. Com he explicat abans el mètode `#value: anObject` recupera el context que teniem guardat, el converteix en l'actual i retorna `anObject`. Així doncs tornem a la linia on li assignavem `Continuation new ...` a `lletra` i retornem `$f`. Al convertir `thisContext` en el context actual l'execucó segueix a partir d'alla. Entrarà al bloc `ifTrue` i mostrarà _és la lletra f_ i _f_.
 
-##### `#value: anObject`
+### Evaluar continuacions: `#value: anObject`
 
 ```smalltalk
 value: anObject
@@ -643,7 +654,7 @@ value: anObject
 
 Aquest mètode, primer de tot elimina el context actual, per tant deixem d'estar en el moment en que s'ha cridat `#value:`. Acte seguit recupera la pila del moment en que s'ha inicialitzat la continuació. Finalment diu que el context actual és el primer de la pila cargada i retorna el valor que se li ha passat al mètode.
 
-##### `#callcc: aBlock`
+### Call current continuation: `#callcc: aBlock`
 
 ```smalltalk
 callcc: aBlock
@@ -668,7 +679,7 @@ fromContext: aStack
 
 Recapitulem: al invocar `callcc` amb un bloc *B*, evaluem el bloc *B* amb la continuació resultant del context on es crida `callcc` (`thisContext sender`).
 
-###### Exemples de `#callcc: aBlock`
+##### Exemples de `#callcc: aBlock`
 
 ```smalltalk
 | x |
@@ -676,26 +687,34 @@ x := Continuation callcc: [ :cc | cc value: true ].
 x "print => true"
 ```
 
-O similar:
+Al cridar `callcc` el que fem és evaluar el bloc `[ :cc | cc value: true ]` amb una continuació d'aquell context (aquesta continuació es crea dintre de `callcc`, a `currentDo`). Al evaluar el bloc amb la continuació, evaluem la continuació amb `true`, és a dir, x val true.
+
+Podem afegir uns `Transcripts show:` per veure cuin és l'ordre en que s'executen les coses:
 
 ```smalltalk
-| x |
-x := Continuation callcc: [ :cc | cc ].
-(x class = Continuation) "aquest ifTrue està per evitar MessageNotUnderstood: True >>value:"
-    ifTrue: [ x value: true. ].
-x "print => true"
+| x |x := Continuation callcc: [ :cc |	Transcript show: 'Primer'; cr.	cc value: true.	Transcript show: 'Això mai d'executa'; cr. ].Transcript show: 'Segon'; cr.Transcript show: x; cr.```
+
+El resultat d'aquest codi serà:
+
+```
+Primer
+Segon
+true
 ```
 
-x és una continuació que serà evaluada amb el bloc `[ :cc | cc value: true ]`. Acte seguit evaluem x (o `^ x`), això ens torna a la linia anteror com si fessim `x := [ :cc | cc value: true ] value: [ ^ x ]`, que és el mateix que `x := [ ^ x ] value: true` que és true. Totes aquestes operacions s'han fet en el context de `x := ...`.
+Un altre exemple per entendre el valor de `cc` i `x`:
 
-```smalltalk
-| x cont |
-x := Continuation callcc: [ :cc | cont := cc. false ].
-x ifFalse: [ cont value: true ].
-x
+```smalltalk| cont x |x := Continuation callcc: [ :cc |	cont := cc.	cont value: 1 ].(x = 1)	ifTrue: [		Transcript show: 'x = '.		Transcript show: x; cr.		cont value: 2 ]	ifFalse: [		Transcript show: 'x = '.		Transcript show: x; cr. ].
 ```
 
-Aquest és similar, al crear la continuació, el bloc retorna fals. x és fals i a continuació és guarda a cont (`cont := cc.`). Al mirar si x és fals, s'evalua la continuació amb _true_ com a valor. Això ens fa tornar adalt, a `x := ...` i donar _true_.
+El resultat d'aquest codi serà:
+
+```
+x = 1
+x = 2
+```
+
+El evaluar el bloc del `callcc` guardem la continuació a la variable `cont` i l'evaluem amb valor *1*. Continuem i mirem que x sigui igual a *1*, obviament ho és perque acabem de donarli aquell valor. Dins del bloc del `ifTrue:` es torna a evaluar la continuació amb valor *2*.
 
 ```smalltalk
 mentreCert: aBlock
@@ -706,10 +725,9 @@ mentreCert: aBlock
         ifTrue:  [ aBlock value. 
                    cont value: cont ]
         ifFalse: [ ^ nil].
-
 ```
 
-En aquest codi volem fer un bucle mentre el bloc `self` sigui cert. Així doncs, creem una **continuació que serà evaluada amb el bloc `[ :cc | cc ]`**. Després evaluem `self` (la condició del _whileTrue_), evaluem el bloc `aBlock` si és cert o sortim (amb `[ ^ nil ]`) si es fals. En cas de que sigui cert, després d'evaluar el bloc `aBlock`, **evaluem `cont`** amb `cont` com a valor. Això li passa `cont` al bloc `[ :cc | cc ]`. Aquest bloc retorna `cc`, el _value_ que li passis. Aixi que `cont` serà **la mateixa continuacó d'abans, que serà evaluada amb el bloc `[ :cc | cc ]`**. Tindrà el context d'aquell moment, l'execució continuarà desde aquell punt i tornarà a evaluar-se `self` com en un `whileTrue`.
+En aquest codi volem fer un bucle mentre el bloc `self` sigui cert. Així doncs, creem una **continuació que serà evaluada en el bloc `[ :cc | cc ]`**. Després evaluem `self` (la condició del _whileTrue_), evaluem el bloc `aBlock` si és cert o sortim (amb `[ ^ nil ]`) si es fals. En cas de que sigui cert, després d'evaluar el bloc `aBlock`, **evaluem `cont`** amb `cont` com a valor. Això li passa `cont` al bloc `[ :cc | cc ]`. Aquest bloc retorna `cc`, el _value_ que li passis. Aixi que `cont` serà **la mateixa continuacó d'abans, que serà evaluada en el bloc `[ :cc | cc ]`**. Tindrà el context d'aquell moment, l'execució continuarà desde aquell punt i tornarà a evaluar-se `self` com en un `whileTrue`.
 
 
 
