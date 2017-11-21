@@ -23,7 +23,11 @@ Pots treure els comentaris dels transcript i comentar el Nautilus per veure l'ob
 Segurament hi ha alguna manera més eficient de fer-ho: El Jordi Fructos m'ha donat una solució més senzilla. Utilitza el mètode `CompiledMethod>>#sendSelector: aSelector`.
 
 ```smalltalk
-| simbol |simbol := #moneda:.Nautilus openInEnvironment: (RBBrowserEnvironment new	forClasses: Object withAllSubclasses;	selectMethods: [ :method | method sendsSelector: simbol])
+| simbol |
+simbol := #moneda:.
+Nautilus openInEnvironment: (RBBrowserEnvironment new
+	forClasses: Object withAllSubclasses;
+	selectMethods: [ :method | method sendsSelector: simbol])
 )
 ```
 
@@ -58,7 +62,8 @@ Dins del bloc podem accedir a thisContext, que es el MethodContext del bloc. I a
 A la classe `Object`:
 
 ```smalltalk
-find: aString    ^(self methods)
+find: aString
+    ^(self methods)
         select: [ :m | (m sourceCode findString: aString) ~= 0 ];
         inject: Set new into: [ :set :m | set add: m selector. set ].
 ```
@@ -66,7 +71,11 @@ find: aString    ^(self methods)
 #### 6. Escriviu un fragment de codi (per ser executat en el *workspace*) que ens digui quants mètodes tenen la String '*this*' en el seu codi font.
 
 ```smaltalk
-(SystemNavigation default allClasses)    inject: 0    into: [ :coll :c |        coll + (c methodDict select: [ :v |            (v sourceCode findString: 'this') ~= 0 ] ) size ]
+(SystemNavigation default allClasses)
+    inject: 0
+    into: [ :coll :c |
+        coll + (c methodDict select: [ :v |
+            (v sourceCode findString: 'this') ~= 0 ] ) size ]
 ```
 
 #### 7. A classe vam veure un mètode anomenat `#haltIf: aSymbol` que permetia fer un halt només quan a la cadena de crides hi havia un mètode amb `aSymbol` com a nom. Feu ara un mètode `#haltIfTrue: aBlock` on aBlock és un bloc sense paràmetres. Aleshores, `self haltIfTrue: [...]` s'aturarà només si el resultat d'avaluar `[...]` és true. A quina classe ha d'anar aquest mètode?
@@ -74,22 +83,36 @@ find: aString    ^(self methods)
 A la classe `Object`:
 
 ```smalltalk
-haltIf: aBlock	aBlock value ifTrue: [ Halt halt ]
+haltIf: aBlock
+	aBlock value ifTrue: [ Halt halt ]
 ```
 
 #### 8. 
 
-##### a) Què fa aquest codi?
+##### a) Què fa aquest codi?
 
-```smalltalk#aa bindTo: 1 in: [    Transcript show: #aa binding asString; cr.    #aa bindTo: 2 in: [    	Transcript show: #aa binding asString; cr. ].    Transcript show: #aa binding asString , ' again'; cr. ].
+```smalltalk
+#aa bindTo: 1 in: [
+    Transcript show: #aa binding asString; cr.
+    #aa bindTo: 2 in: [
+    	Transcript show: #aa binding asString; cr. ].
+    Transcript show: #aa binding asString , ' again'; cr. ].
 ```
 
 Dona un valor diferent al simbol `#aa` depenent del bloc en el que esta. En el primer bloc, és a dir, en la linia 2 i 5, `#aa` val 1. Quan entra al segón bloc `#aa` val 2.
 
-##### b) I aquest codi?
+##### b) I aquest codi?
 
 ```smalltalk
-#aa bindTo: '1' in: [    #bb bindTo: 'a' in: [        Transcript show: #aa binding , '-' , #bb binding; cr.        #aa bindTo: '2' in: [            #bb bindTo: 'b' in: [                Transcript show: #aa binding , '-' , #bb binding; cr. ].            Transcript show: #aa binding , '-' , #bb binding; cr. ].        #bb bindTo: 'b' in: [            Transcript show: #aa binding , '-' , #bb binding; cr ]]]
+#aa bindTo: '1' in: [
+    #bb bindTo: 'a' in: [
+        Transcript show: #aa binding , '-' , #bb binding; cr.
+        #aa bindTo: '2' in: [
+            #bb bindTo: 'b' in: [
+                Transcript show: #aa binding , '-' , #bb binding; cr. ].
+            Transcript show: #aa binding , '-' , #bb binding; cr. ].
+        #bb bindTo: 'b' in: [
+            Transcript show: #aa binding , '-' , #bb binding; cr ]]]
 ```
 
 Va cambiant els valor de `#aa` i `#bb` segons el bloc. De fora a dins:
