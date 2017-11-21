@@ -14,7 +14,11 @@ Object withAllSubclasses do: [ :objecte |
 <p>Aquest codi, a partir de <code>Object</code> mira en ell i totes les seves subclasses (<code>Object withAllSubclasses do: [ :objecte |</code>) tots els seus mètodes (<code>objecte methodDictionary do: [ :mètode |</code>), i en tots els mètodes, si aquest invoca al símbol (<code>(mètode sendsSelector: símbol) ifTrue: [</code>) l’obra al <strong>Nautilus</strong>.</p>
 <p>Pots treure els comentaris dels transcript i comentar el Nautilus per veure l’objecte i el mètode que el crida.</p>
 <p>Segurament hi ha alguna manera més eficient de fer-ho: El Jordi Fructos m’ha donat una solució més senzilla. Utilitza el mètode <code>CompiledMethod&gt;&gt;#sendSelector: aSelector</code>.</p>
-<pre class="smalltalk"><code>| simbol |simbol := #moneda:.Nautilus openInEnvironment: (RBBrowserEnvironment new  forClasses: Object withAllSubclasses;   selectMethods: [ :method | method sendsSelector: simbol])
+<pre class="smalltalk"><code>| simbol |
+simbol := #moneda:.
+Nautilus openInEnvironment: (RBBrowserEnvironment new
+    forClasses: Object withAllSubclasses;
+    selectMethods: [ :method | method sendsSelector: simbol])
 )</code></pre>
 <h4 id="per-quina-raó-savalua-a-true-la-seguent-expressió">2. Per quina raó s’avalua a true la següent expressió?</h4>
 <p><code>Class class class class == Class class class class class class</code></p>
@@ -34,18 +38,36 @@ Transcript show: (fatorial value: 5) asString ; cr.</code></pre>
 <p>Dins del bloc podem accedir a thisContext, que es el MethodContext del bloc. I allà accedir al mateix bloc (<code>codi := thisContext closure</code>). Després executar el mateix codi. La variable factorial no s’utilitza dins del bloc.</p>
 <h4 id="escriviu-un-mètode-find-astring-que-enviat-a-una-classe-retorni-una-collecció-de-selectors-tal-que-els-mètodes-corresponents-contenen-astring-dins-del-seu-codi-font.">5. Escriviu un mètode <code>find: aString</code> que, enviat a una classe, retorni una col·lecció de selectors tal que els mètodes corresponents contenen aString dins del seu codi font.</h4>
 <p>A la classe <code>Object</code>:</p>
-<pre class="smalltalk"><code>find: aString    ^(self methods)
+<pre class="smalltalk"><code>find: aString
+    ^(self methods)
         select: [ :m | (m sourceCode findString: aString) ~= 0 ];
         inject: Set new into: [ :set :m | set add: m selector. set ].</code></pre>
 <h4 id="escriviu-un-fragment-de-codi-per-ser-executat-en-el-workspace-que-ens-digui-quants-mètodes-tenen-la-string-this-en-el-seu-codi-font.">6. Escriviu un fragment de codi (per ser executat en el <em>workspace</em>) que ens digui quants mètodes tenen la String ‘<em>this</em>’ en el seu codi font.</h4>
-<pre class="smaltalk"><code>(SystemNavigation default allClasses)    inject: 0    into: [ :coll :c |        coll + (c methodDict select: [ :v |            (v sourceCode findString: &#39;this&#39;) ~= 0 ] ) size ]</code></pre>
+<pre class="smaltalk"><code>(SystemNavigation default allClasses)
+    inject: 0
+    into: [ :coll :c |
+        coll + (c methodDict select: [ :v |
+            (v sourceCode findString: &#39;this&#39;) ~= 0 ] ) size ]</code></pre>
 <h4 id="a-classe-vam-veure-un-mètode-anomenat-haltif-asymbol-que-permetia-fer-un-halt-només-quan-a-la-cadena-de-crides-hi-havia-un-mètode-amb-asymbol-com-a-nom.-feu-ara-un-mètode-haltiftrue-ablock-on-ablock-és-un-bloc-sense-paràmetres.-aleshores-self-haltiftrue-...-saturarà-només-si-el-resultat-davaluar-...-és-true.-a-quina-classe-ha-danar-aquest-mètode">7. A classe vam veure un mètode anomenat <code>#haltIf: aSymbol</code> que permetia fer un halt només quan a la cadena de crides hi havia un mètode amb <code>aSymbol</code> com a nom. Feu ara un mètode <code>#haltIfTrue: aBlock</code> on aBlock és un bloc sense paràmetres. Aleshores, <code>self haltIfTrue: [...]</code> s’aturarà només si el resultat d’avaluar <code>[...]</code> és true. A quina classe ha d’anar aquest mètode?</h4>
 <p>A la classe <code>Object</code>:</p>
-<pre class="smalltalk"><code>haltIf: aBlock  aBlock value ifTrue: [ Halt halt ]</code></pre>
+<pre class="smalltalk"><code>haltIf: aBlock
+    aBlock value ifTrue: [ Halt halt ]</code></pre>
 <h4 id="section">8.</h4>
-<p>##### a) Què fa aquest codi?</p>
-<p><code>smalltalk#aa bindTo: 1 in: [    Transcript show: #aa binding asString; cr.    #aa bindTo: 2 in: [        Transcript show: #aa binding asString; cr. ].    Transcript show: #aa binding asString , ' again'; cr. ].</code></p>
+<h5 id="a-què-fa-aquest-codi">a) Què fa aquest codi?</h5>
+<pre class="smalltalk"><code>#aa bindTo: 1 in: [
+    Transcript show: #aa binding asString; cr.
+    #aa bindTo: 2 in: [
+        Transcript show: #aa binding asString; cr. ].
+    Transcript show: #aa binding asString , &#39; again&#39;; cr. ].</code></pre>
 <p>Dona un valor diferent al simbol <code>#aa</code> depenent del bloc en el que esta. En el primer bloc, és a dir, en la linia 2 i 5, <code>#aa</code> val 1. Quan entra al segón bloc <code>#aa</code> val 2.</p>
-<p>##### b) I aquest codi?</p>
-<pre class="smalltalk"><code>#aa bindTo: &#39;1&#39; in: [    #bb bindTo: &#39;a&#39; in: [        Transcript show: #aa binding , &#39;-&#39; , #bb binding; cr.        #aa bindTo: &#39;2&#39; in: [            #bb bindTo: &#39;b&#39; in: [                Transcript show: #aa binding , &#39;-&#39; , #bb binding; cr. ].            Transcript show: #aa binding , &#39;-&#39; , #bb binding; cr. ].        #bb bindTo: &#39;b&#39; in: [            Transcript show: #aa binding , &#39;-&#39; , #bb binding; cr ]]]</code></pre>
+<h5 id="b-i-aquest-codi">b) I aquest codi?</h5>
+<pre class="smalltalk"><code>#aa bindTo: &#39;1&#39; in: [
+    #bb bindTo: &#39;a&#39; in: [
+        Transcript show: #aa binding , &#39;-&#39; , #bb binding; cr.
+        #aa bindTo: &#39;2&#39; in: [
+            #bb bindTo: &#39;b&#39; in: [
+                Transcript show: #aa binding , &#39;-&#39; , #bb binding; cr. ].
+            Transcript show: #aa binding , &#39;-&#39; , #bb binding; cr. ].
+        #bb bindTo: &#39;b&#39; in: [
+            Transcript show: #aa binding , &#39;-&#39; , #bb binding; cr ]]]</code></pre>
 <p>Va cambiant els valor de <code>#aa</code> i <code>#bb</code> segons el bloc. De fora a dins: <code>#aa</code> = ‘1’, <code>#bb</code> = ‘a’, <code>#aa</code> = ‘2’, <code>#bb</code> = ‘b’ i després <code>#bb</code> = ‘b’.</p>
