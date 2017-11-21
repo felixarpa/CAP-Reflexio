@@ -3,11 +3,11 @@
 #### 1. Fes un programa (per ser executat al workspace) que, donat un símbol que representarà el selector d'un mètode, generi un browser amb tots els mètodes que l'utilitzen dins el seu codi font.
 
 ```smalltalk
-| símbol |
-símbol := #callcc:.
+| simbol |
+simbol := #callcc:.
 Object withAllSubclasses do: [ :objecte |
     objecte methodDictionary do: [ :mètode | 
-        (mètode sendsSelector: símbol) ifTrue: [
+        (mètode sendsSelector: simbol) ifTrue: [
             "Transcript show: objecte ; cr."
             "Transcript show: mètode selector ; cr ; cr."
             Nautilus openOnMethod: mètode.
@@ -20,7 +20,12 @@ Aquest codi, a partir de `Object` mira en ell i totes les seves subclasses (`Obj
 
 Pots treure els comentaris dels transcript i comentar el Nautilus per veure l'objecte i el mètode que el crida.
 
-Segurament hi ha alguna manera més eficient de fer-ho.
+Segurament hi ha alguna manera més eficient de fer-ho: El Jordi Fructos m'ha donat una solució més senzilla. Utilitza el mètode `CompiledMethod>>#sendSelector: aSelector`.
+
+```smalltalk
+| simbol |simbol := #moneda:.Nautilus openInEnvironment: (RBBrowserEnvironment new	forClasses: Object withAllSubclasses;	selectMethods: [ :method | method sendsSelector: simbol])
+)
+```
 
 #### 2. Per quina raó s'avalua a true la següent expressió?
 
