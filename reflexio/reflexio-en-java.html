@@ -1,0 +1,70 @@
+<h1 id="reflexió-en-java">Reflexió en Java</h1>
+<h2 id="concepter-bàsics">Concepter bàsics</h2>
+<h4 id="metaobjectes">Metaobjectes</h4>
+<p>Serveixen per representar l’estat inten del programa, l’auto-representació del programa. Les instàncies de <code>Class</code> i <code>Method</code> serien metaobjectes. Els metaobjectes ens permeten accedir i canviar l’estructura d’un programa, el seu comportament o les seves dades p.ex. invocació dinàmica o interceptar crides a mètodes.</p>
+<h4 id="objectes-de-base-base-level-objects">Objectes de base (base-level objects)</h4>
+<p>Objectes “normals” que el nostre programa fa servir per fer el que volem. Les parts <strong>no</strong> reflexives d’un programa formen el <em>programa base</em>.</p>
+<h3 id="class"><code>Class</code></h3>
+<p>Tots els objectes Java és intància d’una classe que ve donada pel mètode <code>getClass()</code>. Podem trobar la classe de qualsevol objecte. Els <em>class literals</em> serveixen per especificar estàticament un objecte instancia de <code>Class</code> (<code>Persona.class</code>). A la classe <code>Class</code> podem trobar els mètodes:</p>
+<p><code>Method getMethod(String name, Class[] parameterTypes)</code>: Retorna el <code>Method</code> public (declarat a la classe o heredat d’una superclasse o d’una interficia) de la classe on s’invoca, amb nom <code>name</code> i els tipus dels paràmetres corresponents a <code>parameterTypes</code>.</p>
+<p><code>Method[] getMethods()</code>: Retorna tots els mètodes de la classe.</p>
+<p><code>Method getDeclaredMethod(String name, Class[] parameterTypes)</code>: Retorna el <code>Method</code> public declarat a la classe de la classe on s’invoca, amb nom <code>name</code> i els tipus dels paràmetres corresponents a <code>parameterTypes</code>.</p>
+<p><code>Method[] getDeclaredMethods()</code>: Retorna tots els mètodes declarats a la classe.</p>
+<p><code>String getName()</code>: Retorna el nom de la classe.</p>
+<p><code>Class getComponentType()</code>: Si és una array (array amb <code>[]</code>, no <code>Array</code> o <code>ArrayList</code>), ens dona la classe del tipus que representa.</p>
+<p><code>boolean isArray()</code>: True si la classe és un Array.</p>
+<p><code>boolean isInterface()</code>: True si la classe representa una interficie.</p>
+<p><code>boolean isPrimitive()</code>: True si la classe és primitiva o <code>void</code>.</p>
+<p><code>Class[] getInterface()</code>: Llista d’interfaces que implementa.</p>
+<p><code>Class getSuperclass()</code>: Superclasse.</p>
+<p><code>boolean isAssignableFrom(Class cls)</code>: True si la classe és la mateixa, superclasse o interficie</p>
+<p><code>boolean isInstance(Object obj)</code>: True si l’objecte <code>obj</code> és instància de la classe.</p>
+<p><code>Field getField(String name)</code>: Retorna el <code>Field</code> public (declarat a la classe o heredat d’una superclasse) de la classe on s’invoca, amb nom <code>name</code>.</p>
+<p><code>Field[] getFields()</code>: Llista d’atributs de la classe (heretats també).</p>
+<p><code>Field getDeclaredField(String name)</code>: Retorna el <code>Field</code> public declarat a la classe de la classe on s’invoca, amb nom <code>name</code>.</p>
+<p><code>Field[] getDeclaredFields()</code>: Llista d’atributs només de la classe.</p>
+<p><code>Contructor getContructor(Class[] parameterTypes)</code>: Retorna el <code>Contructor</code> (declarat a la classe o heredat d’una superclasse o d’una interficia) de la classe on s’invoca, amb els tipus dels paràmetres corresponents a <code>parameterTypes</code>.</p>
+<p><code>Contructor[] getContructor()</code>: Retorna tots els constructors de la classe.</p>
+<p><code>Contructor getDeclaredContructor(String name, Class[] parameterTypes)</code>: Retorna el <code>Contructor</code> declarat a la classe de la classe on s’invoca, amb els tipus dels paràmetres corresponents a <code>parameterTypes</code>.</p>
+<p><code>Contructor[] getDeclaredContructor()</code>: Retorna tots els constructors declarats a la classe.</p>
+<h3 id="method"><code>Method</code></h3>
+<p><code>Class getDeclaringClass()</code>: Retorna la classe on es declara el mètode.</p>
+<p><code>Class[] getExceptionTypes()</code>: Dona la llista de classes de les excepcions que pot activar el mètode.</p>
+<p><code>int getModifiers()</code>: Dona els modificadors (<code>public</code>, <code>static</code>, <code>protected</code>, …) codificats en un enter (<em>WTF Java?</em>).</p>
+<p><code>String getName()</code>: Retorna el nom del mètode.</p>
+<p><code>Class[] getParameterTypes()</code>: Retorna una llista de les classes dels paràmetres que se li passen.</p>
+<p><code>Class getReturnType()</code>: Retorna la classe del valor que retorna.</p>
+<p><code>Object invoke(Object obj, Object args[])</code>: Al aplicar això a un mètode <strong>M</strong>, executa <strong>M</strong> a <strong>obj</strong> amb els paràmetres <strong>args</strong> i dona el valor que retorna <strong>M</strong>.</p>
+<h3 id="field"><code>Field</code></h3>
+<p><code>Class getType()</code>: Retorna la classe de l’atribut.</p>
+<p><code>Class getDeclaringClass()</code>: Retorna la classe on està l’atribut.</p>
+<p><code>int getModifiers()</code>: Dona els modificadors (<code>public</code>, <code>static</code>, <code>protected</code>, …) codificats en un enter (<em>WTF Java?</em>).</p>
+<p><code>String getName()</code>: Retorna el nom de l’atribut.</p>
+<p><code>Object get(Object obj)</code>: Retorna el valor de l’atribut en <code>obj</code>.</p>
+<p><code>boolean getBoolean(Object obj)</code>: Retorna el valor booleà de l’atribut en <code>obj</code>. També hi ha <code>getInt</code>, <code>getChar</code>, etc.</p>
+<p><code>void set(Object obj, Object value)</code>: Dona valor <code>value</code> a l’atribut en <code>obj</code>.</p>
+<p><code>void set(Object obj, boolean value)</code>: Dona valor <code>value</code> a l’atribut en <code>obj</code>. També hi ha <code>set(..., int)</code>, <code>set(..., char)</code>, etc.</p>
+<h3 id="modifier"><code>Modifier</code></h3>
+<p><code>static boolean isPublic(int mod)</code>: True si el modificador és/conté <code>public</code>.</p>
+<p><code>static boolean isStatic(int mod)</code>: True si el modificador és/conté <code>static</code>.</p>
+<p>… Una per cada modificador (<code>public</code>, <code>static</code>, <code>native</code>, <code>volatile</code>, <code>protected</code>, <code>abstract</code>, <code>synchronized</code>, <code>strictfp</code>, <code>private</code>, <code>final</code>, <code>transient</code>).</p>
+<h3 id="accessibleobject"><code>AccessibleObject</code></h3>
+<p>Superclasse de <code>Method</code> i <code>Field</code>.</p>
+<p><code>void setAccessible(boolean flag)</code>: Fa accessibile o no (<code>true</code> o <code>false</code>) al mètode.</p>
+<p><code>boolean isAccessible()</code>: True si és accessible.</p>
+<p><code>static void setAccessible(AccessibleObject[] array, boolean flag)</code>: Fa accessibles o no a la llista d’objectes.</p>
+<h3 id="array">Array</h3>
+<p><code>Object newInstance(Class componentType, int lenght)</code>: Crea un nova instancia del array de tipus <code>componentType</code> amb mida <code>length</code>.</p>
+<p><code>Object newInstance(Class componentType, int[] dimensions)</code>: Crea un nova instancia del array de tipus <code>componentType</code> amb dimensions <code>dimensions</code> (2D, 3D, …).</p>
+<p><code>int getLength(Object array)</code>: Retorna la mida de l’array.</p>
+<p><code>Object get(Object array, int index)</code>: Retorna l’element de l’array amb index. <code>array[index]</code>.</p>
+<p><code>boolean getBoolean(Object array, int index)</code>: Retorna l’element de l’array booleà amb index. També hi ha <code>getInt</code>, <code>getChar</code>, etc.</p>
+<p><code>void set(Object array, int index, Object value)</code>: Dona valor <code>value</code> al element <code>index</code> d’<code>array</code>.</p>
+<p><code>void setBoolean(Object array,int, index, boolean value)</code>: Dona valor <code>value</code> al element <code>index</code> d’<code>array</code>. També hi ha <code>set(..., ..., int)</code>, <code>set(..., ..., char)</code>, etc.</p>
+<h3 id="contructor"><code>Contructor</code></h3>
+<p><code>Class getDeclaringClass()</code>: Retorna la classe on es declara el constructor.</p>
+<p><code>Class[] getExceptionTypes()</code>: Dona la llista de classes de les excepcions que pot activar el contructor.</p>
+<p><code>int getModifiers()</code>: Dona els modificadors (<code>public</code>, <code>static</code>, <code>protected</code>, …) codificats en un enter (<em>WTF Java?</em>).</p>
+<p><code>String getName()</code>: Retorna el nom del contructor.</p>
+<p><code>Class[] getParameterTypes()</code>: Retorna una llista de les classes dels paràmetres que se li passen.</p>
+<p><code>Object newInstance(Object[] initArgs)</code>: Crea un nova instancia del l’objecte amb els arguments donats.</p>
