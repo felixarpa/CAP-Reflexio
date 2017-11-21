@@ -13,7 +13,7 @@ Codi i apunts en markdown de la primera part de reflexió de l'assignatura Conce
 	- [Reflexió en Smalltalk](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md)
 	- [Continuacions](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#continuacions)
 	- [Exercicis de reflexió en Smalltalk](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/exercicis-smalltalk.md)
-	- [Reflexió en Java]()
+	- [Reflexió en Java](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-java.md)
 
 ## Entorn de treball
 
