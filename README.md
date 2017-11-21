@@ -21,15 +21,21 @@ Codi i apunts en markdown de la primera part de reflexió de l'assignatura Conce
 
 Instal·lar **Pharo 3.0** a Mac és molt fàcil. Ves a la carpeta `pharo/` d'aquest repositori i descomprimeix l'arxiu `pharo-mac-stable.zip`. Apareixerà l'aplicació Pharo, ja està.
 
+### Pharo 3.0 (FIB)
+
+Als ordinadors de la FIB (amb **Linux**, no utilitzeu windows, siusplau) pharo ja està instal·lat. Per iniciar-lo cal executar la següent comanda: `/opt/pharo3.0/pharo-vm/pharo <image>`. Cal dona una imatge buida, la que s'extregui de l'arxiu `Pharo-Image-3.0-latest.zip`.
+
 ### Pharo Image
 
 Per començar a utilitzar **Pharo 3.0** es necessita una imatge. Està l'última versió de **Pharo 3.0** comprimida a l'arxiu `Pharo-Image-3.0-latest.zip`. Aquesta imatge només té les classes per defecte de Smalltalk, no té cap classe ni paquet utilitzat a classe o en aquest repositori.
 
 ### Entorn de Pharo
 
-Per poder utilitzar aquest repositori al Pharo cal seguir els següents passos:
+Per poder utilitzar aquest repositori al cal seguir els següents passos
 
-#### Instal·la `filetree` a Pharo
+#### Instal·la `filetree`
+
+##### macOS
 
 Dintre de l'entorn de **Pharo**, obra un Workspace amb el botó dret i obra un `Workspace` i executa (`cmd + D`, `ctrl + D`) el següent codi:
 
@@ -69,6 +75,10 @@ Metacello new
 *Si estàs utilitzant una altra versió de Pharo que no sigui la 3.0 canvia on posa `filetree:pharo3.0` per la versió que toqui (pharo1.1, pharo1.3, pharo1.4, pharo2.0).*
 
 Ara que ja tenim el filetree al nostre **Pharo**.
+
+##### Linux
+
+Ja està instalat.
 
 #### Clona el repositori
 
