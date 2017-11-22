@@ -23,7 +23,7 @@ Instal·lar **Pharo 3.0** a Mac és molt fàcil. Ves a la carpeta `pharo/` d'aqu
 
 ### Pharo 3.0 (FIB)
 
-Als ordinadors de la FIB (amb **Linux**, no utilitzeu windows, siusplau) pharo ja està instal·lat. Per iniciar-lo cal executar la següent comanda: `/opt/pharo3.0/pharo-vm/pharo <image>`. Cal dona una imatge buida, la que s'extregui de l'arxiu `Pharo-Image-3.0-latest.zip`.
+Als ordinadors de la FIB (amb **Linux**, no utilitzeu windows, siusplau) pharo ja està instal·lat. Per iniciar-lo cal executar la següent comanda: `pharo-ui <image>`.
 
 ### Pharo Image
 
