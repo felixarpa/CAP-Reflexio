@@ -1,41 +1,39 @@
 # CAP-Reflexio
 
-Codi i apunts en markdown de la primera part de reflexió de l'assignatura Conceptes Avançats de Programació (CAP)
+Codi i apunts de la primera part de reflexió de l'assignatura Conceptes Avançats de Programació (CAP)
 
 ## Contingut
 
 - [Introducció a Smalltalk]()
-	- [Pasta](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Pasta.package/Pasta.class)
-	- [PastaTest](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Pasta.package/PastaTest.class)
+	- [Pasta](smalltalk/Pasta.package/Pasta.class)
+	- [PastaTest](smalltalk/Pasta.package/PastaTest.class)
 
-- [Reflexió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio)
-	- [Introducció](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/introduccio.md)
-	- [Reflexió en Smalltalk](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md)
-	- [Continuacions](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#continuacions)
-	- [Exercicis de reflexió en Smalltalk](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/exercicis-smalltalk.md)
-	- [Reflexió en Java](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-java.md)
+- [Reflexió](reflexio)
+	- [Introducció](reflexio/introduccio.md)
+	- [Reflexió en Smalltalk](reflexio/reflexio-en-smalltalk.md)
+	- [Continuacions](hreflexio/reflexio-en-smalltalk.md#continuacions)
+	- [Exercicis de reflexió en Smalltalk](hreflexio/exercicis-smalltalk.md)
+	- [Reflexió en Java](hreflexio/reflexio-en-java.md)
 
 ## Entorn de treball
 
-### Pharo 3.0 (macOS)
+### Pharo 3.0
+
+#### macOS
 
 Instal·lar **Pharo 3.0** a Mac és molt fàcil. Ves a la carpeta `pharo/` d'aquest repositori i descomprimeix l'arxiu `pharo-mac-stable.zip`. Apareixerà l'aplicació Pharo, ja està.
 
-### Pharo 3.0 (FIB)
+#### Linux (FIB)
 
-Als ordinadors de la FIB (amb **Linux**, no utilitzeu windows, siusplau) pharo ja està instal·lat. Per iniciar-lo cal executar la següent comanda: `pharo-ui <image>`.
-
-### Pharo Image
-
-Per començar a utilitzar **Pharo 3.0** es necessita una imatge. Està l'última versió de **Pharo 3.0** comprimida a l'arxiu `Pharo-Image-3.0-latest.zip`. Aquesta imatge només té les classes per defecte de Smalltalk, no té cap classe ni paquet utilitzat a classe o en aquest repositori.
+Als ordinadors de la FIB (amb **Linux**, no utilitzeu Windows, si us plau) pharo ja està instal·lat. Per iniciar-lo cal executar la següent comanda: `pharo-ui <image>`.
 
 ### Entorn de Pharo
 
-Per poder utilitzar aquest repositori al cal seguir els següents passos
+Per començar a utilitzar **Pharo 3.0** es necessita una imatge. Està l'última versió de **Pharo 3.0** comprimida a l'arxiu `Pharo-Image-3.0-latest.zip`. Aquesta imatge només té les classes per defecte de Smalltalk, no té cap classe ni paquet utilitzat a classe o en aquest repositori.
+
+Per poder utilitzar aquest repositori, cal seguir els següents passos. Primer de tot, cal comprovar que el Pharo tingui instal·lat el `filetree`: Botó dret, obrim *Monticello Browser* i li donem a `+Repository`. Si apareix la opciò de `filetree` no cal instal·lar-lo i pots saltar directament a [Clona el repositori](#clona-el-repositori).
 
 #### Instal·la `filetree`
-
-##### macOS
 
 Dintre de l'entorn de **Pharo**, obra un Workspace amb el botó dret i obra un `Workspace` i executa (`cmd + D`, `ctrl + D`) el següent codi:
 
@@ -75,10 +73,6 @@ Metacello new
 *Si estàs utilitzant una altra versió de Pharo que no sigui la 3.0 canvia on posa `filetree:pharo3.0` per la versió que toqui (pharo1.1, pharo1.3, pharo1.4, pharo2.0).*
 
 Ara que ja tenim el filetree al nostre **Pharo**.
-
-##### Linux
-
-Ja està instalat.
 
 #### Clona el repositori
 
