@@ -11,9 +11,9 @@ Codi i apunts de la primera part de reflexió de l'assignatura Conceptes Avança
 - [Reflexió](reflexio)
 	- [Introducció](reflexio/introduccio.md)
 	- [Reflexió en Smalltalk](reflexio/reflexio-en-smalltalk.md)
-	- [Continuacions](hreflexio/reflexio-en-smalltalk.md#continuacions)
-	- [Exercicis de reflexió en Smalltalk](hreflexio/exercicis-smalltalk.md)
-	- [Reflexió en Java](hreflexio/reflexio-en-java.md)
+	- [Continuacions](reflexio/reflexio-en-smalltalk.md#continuacions)
+	- [Exercicis de reflexió en Smalltalk](reflexio/exercicis-smalltalk.md)
+	- [Reflexió en Java](reflexio/reflexio-en-java.md)
 
 ## Entorn de treball
 

@@ -1,13 +1,13 @@
 # Introducció
 
-- [Definició](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/introduccio.md#definició)
-- [Fonaments](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/introduccio.md#fonaments)
-	- [Reflexió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/introduccio.md#reflexió)
-	- [Introspecció](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/introduccio.md#introspecció)
-	- [Intercessió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/introduccio.md#intercessió)
-	- [Sistemes reflexius](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/introduccio.md#sistemes-reflexius)
-	- [Reflexió estructural](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/introduccio.md#reflexió-estructural)
-	- [Reflexió de comportament](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/introduccio.md#reflexió-de-comportament)
+- [Definició](introduccio.md#definició)
+- [Fonaments](introduccio.md#fonaments)
+	- [Reflexió](introduccio.md#reflexió)
+	- [Introspecció](introduccio.md#introspecció)
+	- [Intercessió](introduccio.md#intercessió)
+	- [Sistemes reflexius](introduccio.md#sistemes-reflexius)
+	- [Reflexió estructural](introduccio.md#reflexió-estructural)
+	- [Reflexió de comportament](introduccio.md#reflexió-de-comportament)
 
 ## Definició
 
@@ -100,29 +100,26 @@ Habilitat d'un programa d'**observar**, i per tant **raonar**, sobre ell mateix.
 
 ### Intercessió
 
-Habilitat d'un programa de **modificar**-se o d'**alterar** la seva interpetació.
+Habilitat d'un programa de **modificar**-se o d'**alterar** la seva interpretació.
 
 ### Sistemes reflexius
 
-Un sisteme refleciu...
+Un sistema reflexiu...
 
 ...té una **representació interna d'ell mateix**.
 
 ...és capaç d'**actuar sobre ell mateix**.
 
-...té capacitat d'**auto-representació** i d'**auto-modificació** continuament sincronitzades.
+...té capacitat d'**autorepresentació** i d'**automodificació** contínuament sincronitzades.
 
 ### Reflexió estructural
 
-Capacitat del llenguatge de programació de **reificació** completa del seu programa que s'està eecutant i dels tipus abstractes de dades.
+Capacitat del llenguatge de programació de **reïficació** completa del seu programa que s'està executant i dels tipus abstractes de dades.
 
 ### Reflexió de comportament
 
-Capacitat del llenguatge de programació de **reificació** completa de la seva pròpia semàntica i implementació.
+Capacitat del llenguatge de programació de **reïficació** completa de la seva pròpia semàntica i implementació.
 
 > **Reïficar**: Transformar (una idea, una qualitat, una funció) en una cosa, concebre-la per analogia a l’estructura de les coses.
 
 La *reflexió estructural* i *de comportament* determinen **quin tipus d'accés** tenim al programa, la *introspecció* i *intercessió* ens determina **què podem fer**.
-
-## Reflexió en Smalltalk
-

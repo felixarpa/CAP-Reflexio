@@ -1,20 +1,20 @@
 # Reflexió en Smalltalk
 
-- [Pròleg](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md#pròleg)
-	- [Les Mestaclasses en 7 parts](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md#les-metaclasses-en-7-parts)
-	- [Classes Indexades i Variables d’Instància](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md#classes-indexades-i-variables-dinstància)
-	- [Variables de class-instància](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md#variables-de-classe-instància)
-	- [Variables de class](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md#variables-de-classe)
-- [Reflexió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md#reflexió)
-	- [Introspecció](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md#introspecció)
-        - [Inspecció d'objectes](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#inspecció-dobjectes)
-        - [Consultar el codi](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#consultar-el-codi)
-        - [Accedit els contexts d'execució](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#accedir-els-contexts-dexecució)
-	- [Intercessió](https://github.com/felixarpa/CAP-Reflexio/tree/master/reflexio/reflexio-en-smalltalk.md#intercessió)
-        - [Sobreescriure #doesNotUnderstand](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#sobreescriure-doesnotunderstand)
-        - [Classes Anònimes](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#classes-anònimes)
-        - [Method Wrappers](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#method-wrappers)
-- [Continuacions](https://github.com/felixarpa/CAP-Reflexio/blob/master/reflexio/reflexio-en-smalltalk.md#continuacions)
+- [Pròleg](reflexio-en-smalltalk.md#pròleg)
+	- [Les Mestaclasses en 7 parts](reflexio-en-smalltalk.md#les-metaclasses-en-7-parts)
+	- [Classes Indexades i Variables d’Instància](reflexio-en-smalltalk.md#classes-indexades-i-variables-dinstància)
+	- [Variables de class-instància](reflexio-en-smalltalk.md#variables-de-classe-instància)
+	- [Variables de class](reflexio-en-smalltalk.md#variables-de-classe)
+- [Reflexió](reflexio-en-smalltalk.md#reflexió)
+	- [Introspecció](reflexio-en-smalltalk.md#introspecció)
+        - [Inspecció d'objectes](reflexio-en-smalltalk.md#inspecció-dobjectes)
+        - [Consultar el codi](reflexio-en-smalltalk.md#consultar-el-codi)
+        - [Accedit els contexts d'execució](reflexio-en-smalltalk.md#accedir-els-contexts-dexecució)
+	- [Intercessió](reflexio-en-smalltalk.md#intercessió)
+        - [Sobreescriure #doesNotUnderstand](reflexio-en-smalltalk.md#sobreescriure-doesnotunderstand)
+        - [Classes Anònimes](reflexio-en-smalltalk.md#classes-anònimes)
+        - [Method Wrappers](reflexio-en-smalltalk.md#method-wrappers)
+- [Continuacions](reflexio-en-smalltalk.md#continuacions)
 
 ## Pròleg
 
@@ -26,17 +26,15 @@
 
 Tot és un objecte. La classe de cada objecte hereta d'*Object*
 
-Quan un objecte rep un missatge, el mètode es busca
-al diccionari de mètodes de la seva classe, i, si cal, a
-les seves superclasses, fins arribar a *Object*.
+Quan un objecte rep un missatge, el mètode es busca al diccionari de mètodes de la seva classe, i, si cal, a les seves superclasses, fins a arribar a *Object*.
 
 *Object* representa el comportament comú a tots els objectes (com la gestió d'errors, per exemple). Totes les classes haurien d'heretar d'*Object*.
 
 #### 3. Tota classe és instància d’una metaclasse
 
-Com a Smalltalk tot és un objecte, les **classes també son objectes**. Cada classe *X* és l'única instància de la seva *metaclasse* anomenada *X class*.
+Com a Smalltalk tot és un objecte, les **classes també són objectes**. Cada classe *X* és l'única instància de la seva *metaclasse* anomenada *X class*.
 
-Les *metaclasses* es crean quan es crea un classes de forma implícita. Les *metaclasses* no es comparteixen, cada classe és **instància única** de la seva *metaclasse*.
+Les *metaclasses* es creen quan es crea una classe de forma implícita. Les *metaclasses* no es comparteixen, cada classe és **instància única** de la seva *metaclasse*.
 
 ![](./res/metaclasses00.png)
 
@@ -52,15 +50,15 @@ Per accedir a la *metaclasse* d'una classe s'ha d'activar el *class side* al Pha
 
 ##### Behavior
 
-És el mínim estat necessari pels objectes que tenen instancies. Té l'interfície bàsica pel compilador.
+És el mínim estat necessari per als objectes que tenen instàncies. Té la interfície bàsica pel compilador.
 
 ##### ClassDescription
 
-Afageix algunes utilitats a *Behavior*. És una classe abstracte, les utilitats que proporciona estan pensades per *Class* i *Metaclass*.
+Afegeix algunes utilitats a *Behavior*. És una classe abstracta, les utilitats que proporciona estan pensades per *Class* i *Metaclass*.
 
 ##### Class
 
-Representa el comportament comú de totes les classes (com, compilació, emmagatzematge de mètodes, variables d'instancia, etc).
+Representa el comportament comú de totes les classes (com, compilació, emmagatzematge de mètodes, variables d'instància, etc.).
 
 #### 6. Tota metaclass és instància de Metaclass
 
@@ -68,7 +66,7 @@ Representa el comportament comú de totes les classes (com, compilació, emmagat
 
 ##### Metaclass
 
-Representa el comportament comú de totes les *metaclasses* 
+Representa el comportament comú de totes les *metaclasses*.
 
 #### 7. La metaclasse de Metaclass és instància de Metaclass
 
@@ -102,8 +100,7 @@ testHierarchy
 
 ### Classes Indexades i Variables d’Instància
 
-Tenim dues maneres de representar objectes
-*Variables d’Instància* per utilitzar-los, amb nom o indexades
+Tenim dues maneres de representar objectes *Variables d’Instància* per utilitzar-los, amb nom o indexades.
 
 - Amb **nom** `name` de `GamePlayer.class`
 - **Indexada** `#(Jack Jill) at: 1` seria "Jack".
@@ -120,7 +117,7 @@ Una **variable indexada** s'afegeix implícitament a la llista de **variables d�
 - Només hi ha una variable indexada (d'instància) per classe
 - Accés amb `#at:` i amb `#at:put:`
 
-Les subclasses d'una classe indexable han de ser també indexades
+Les subclasses d'una classe indeleble han de ser també indexades.
 
 #### IndexedObject
 
@@ -133,7 +130,7 @@ Object variableSubclass: #IndexedObject
     category: 'ClassesIndexades'
 ```
 
-Exemple d'us:
+Exemple d'ús:
 
 ```smalltalk
 (IndexedObject new: 2)
@@ -142,7 +139,7 @@ Exemple d'us:
     at: 1. " Print it => 'Fèlix' "
 ```
 
-[Implementació](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/ClassesIndexades.package/IndexedObject.class)
+[Implementació](../smalltalk/ClassesIndexades.package/IndexedObject.class)
 
 ### Variables de classe-instància
 
@@ -150,7 +147,7 @@ Les classes són objectes, instàncies de la seva metaclasse, així que poden te
 
 #### Exemple: El patró Singleton
 
-Volem que la classe sigui singleton ([codi](https://github.com/felixarpa/CAP-Reflexio/tree/master/smalltalk/Patterns.package/Singleton.class)).
+Volem que la classe sigui singleton ([codi](../smalltalk/Patterns.package/Singleton.class)).
 
 ```smalltalk
 Object subclass: #Singleton
@@ -166,7 +163,7 @@ Singleton class
     instanceVariableNames: 'uniqueInstance'
 ```
 
-Ara toca controlar la creació de lobjecte *Singleton* i l'access a *uniqueInstance*:
+Ara toca controlar la creació de l'objecte *Singleton* i l'accés a *uniqueInstance*:
 
 ```smalltalk
 new
@@ -184,17 +181,17 @@ uniqueInstance
 
 ### Variables de classe
 
-Serveixen per compartir informació entre instàncies d'una classe. Son variables compartides i direcament accessibles per totes les instàncies de la classe i la subclasse. Comença amb una lletra majúscula.
+Serveixen per compartir informació entre instàncies d'una classe. Són variables compartides i directament accessibles per totes les instàncies de la classe i la subclasse. Comença amb una lletra majúscula.
 
 ## Reflexió
 
 ### Introspecció
 
-Fent introspecció a Smalltalk podem arribar a inspecionar objectes, consultar el seu codi i també accedir els contests d'execució.
+Fent introspecció a Smalltalk podem arribar a inspeccionar objectes, consultar el seu codi i també accedir els contexts d'execució.
 
 #### Inspecció d'objectes
 
-Una classe té un format, una superclasse i un diccionari de mètodes. Com hem vist abans cada classe té una *metaclasse* que es crea implicitament quan es crea la classe. On es crea aquesta metaclasse i la classe com a instància? Ho podem trobar a `SlotClassBuilder >> #buildNewClass`. En aquesta funció es crea un metaclasse nova `metaclass := Metaclass new.` i s'instancia creant una nova classe `newClass := metaclass new.`.
+Una classe té un format, una superclasse i un diccionari de mètodes. Com hem vist abans cada classe té una *metaclasse* que es crea implícitament quan es crea la classe. On es crea aquesta metaclasse i la classe com a instància? Ho podem trobar a 'SlotClassBuilder >;;>;; #buildNewClass'. En aquesta funció es crea un metaclasse nova 'metaclass := Metaclass new.' i s'instància creant una nova classe 'newClass := metaclass new.'.
 
 ```smalltalk
 buildNewClass
@@ -224,17 +221,17 @@ buildNewClass
     ^ newClass
 ```
 
-Cal distingir entre *metaobjectes* i *metaclasses*. Amb el nom ja ens ho podem imaginar. Una *metaclasse* és la classe de les classes. Una classe les instàncies de la qual són classes. En canvi un *metaobjexte* és un objecte que descriu o manipula altres objectes, per exemple:
+Cal distingir entre *metaobjectes* i *metaclasses*. Amb el nom ja ens ho podem imaginar. Una *metaclasse* és la classe de les classes. Una classe les instàncies de la qual són classes. En canvi un *metaobjecte* és un objecte que descriu o manipula altres objectes, per exemple:
 
 - **Estructura:** `Behavior`, `ClassDescription`, `Class`, `Metaclass`, `ClassBuilder`
-- **Semántica:** `Compiler`, `Decompiler`, `IRBuilder`
+- **Semàntica:** `Compiler`, `Decompiler`, `IRBuilder`
 - **Comportament:** `CompiledMethod`, `BlockContext`, `Message`, `Exception`
 - **Control de l'estat:** `BlockContext`, `Process`, `ProcessorScheduler`
 - **Recursos:** `WeakArray`
 - **Noms:** `SystemDictionary`
 - **Llibreries:** `MethodDictionary`, `ClassOrganizer`
 
-Aquests *metaobjectes* tene les seves *metaoperacions*. Les metaoperacions són les que ofereixen informació (o *metainformació*) dels objectes.
+Aquests *metaobjectes* tenen les seves *metaoperacions*. Les metaoperacions són les que ofereixen informació (o *metainformació*) dels objectes.
 
 Utilitzem la *metaoperació* `instVarNamed:` per accedir a la variable d'un objecte pel nom i fem servir `put:` per canviar el seu valor.
 
@@ -249,11 +246,11 @@ punt instVarNamed: 'x' put: 4.
 punt "(4@2)"
 ```
 
-També podem accedir a al *metainformació* (`Object >> #class`, `Object >> #identityHash`) I canviar-la (`Object >> #primitiveChangeClassTo:`, `ProtoObject >> #become:`, `Object >> #becomeForward:`).
+També podem accedir a la *metainformació* (`Object >> #class`, `Object >> #identityHash`) I canviar-la (`Object >> #primitiveChangeClassTo:`, `ProtoObject >> #become:`, `Object >> #becomeForward:`).
 
 ###### primitiveChangeClassTo
 
-Canvia la classe de l'objecte receptor del missatge per la classe del objecte argument. Les dues classes tenen la mateixa estructura a les seves instancies. Per això quan creem el metode `thisIsATest` *browser* ho entén pero un nou *Browser* no.
+Canvia la classe de l'objecte receptor del missatge per la classe de l'objecte argument. Les dues classes tenen la mateixa estructura a les seves instàncies. Per això quan creem el mètode 'thisIsATest' *browser* ho entén però un nou *Browser* no.
 
 ```smalltalk
 testPrimitiveChangeClassTo
@@ -272,7 +269,7 @@ testPrimitiveChangeClassTo
 
 ###### become
 
-Intercanvia totes les referències d'un objecte a l'altre i vice-versa. `punt1` passa a ser `punt3` i `punt3` passa a ser `punt1`.
+Intercanvia totes les referències d'un objecte a l'altre i viceversa. 'punt1' passa a ser 'punt3' i 'punt3' passa a ser 'punt1'.
 
 ```smalltalk
 testBecome
@@ -304,9 +301,9 @@ testBecomeForward
 
 #### Consultar el codi
 
-A Pharo podem veure el codi de totes les classes i métodes gràcies al System Navigation, però ademés podem accedir a informació "interessant" sobre aquest codi com per exemple les subclasses (`subclasses`, també les subclasses de les subclasses amb `allSubclasses`), les linies de codi (`linesOfCode`), superclasses (`allSuperclasses`), etc.
+A Pharo podem veure el codi de totes les classes i mètodes gràcies al System Navigation, però a més podem accedir a informació "interessant" sobre aquest codi com per exemple les subclasses ('subclasses', també les subclasses de les subclasses amb 'allSubclasses'), les línies de codi ('linesOfCode'), superclasses ('allSuperclasses'), etc.
 
-Com hem vist abans, totes les classes són subclasse de *Behavior*. Behavior té un diccionari de metodes `MethodDictionari`, un diccionari de `CompiledMethod`. Podem accedir a aquests metodes accedint per nom a al diccionari.
+Com hem vist abans, totes les classes són subclasse de *Behavior*. Behavior té un diccionari de mètodes 'MethodDictionari', un diccionari de 'CompiledMethod'. Podem accedir a aquests mètodes accedint per nom al diccionari.
 
 ```smalltalk
 5 factorial.
@@ -315,9 +312,9 @@ Com hem vist abans, totes les classes són subclasse de *Behavior*. Behavior té
 
 #### Accedir els contexts d'execució
 
-La pila d'execució por ser reificada i maniupala. `thisContext` és una pseudo-variable que ens dóna accés a la pila.
+La pila d'execució pot ser reïficada i manipula. 'thisContext' és una pseudovariable que ens dóna accés a la pila.
 
-Creem `Integer >> #factorial2` per veure el funcionament de la pila.
+Creem 'Integer >;;;>;;; #factorial2' per veure el funcionament de la pila.
 
 ```smalltalk
 factorial2
@@ -328,13 +325,13 @@ factorial2
     self error: 'Not valid for negative integers'
 ```
 
-`thisContext explore` ens obrirà el context actual i `self halt` aturarà l'execució. Com la functió factorial és recursiva, quan ara fem, per exemple, `5 factorial` veurem totes les crides recursives.
+'thisContext explore' ens obrirà el context actual i 'self halt' aturarà l'execució. Com la funció factorial és recursiva, quan ara fem, per exemple, '5 factorial' veurem totes les crides recursives.
 
-> El metode `factorial2` està implementat al paquet *Reflexió*. Així que només cal executar al Workspace `5 factorial2`.
+> El mètode 'factorial2' està implementat al paquet *Reflexió*. Així que només cal executar al Workspace '5 factorial2'.
 
-Com tot és un objecte modelitzem la pila d'execució amb objectes, concretament amb la classe `MethodContext`. Aquesta classe gestiona l'espai associat a l'execució d'un `CompiledMethod` (PC, el mètode en si, *sender* i *receiver*). El *sender* és el previ MethodContext.
+Com tot és un objecte modelitzem la pila d'execució amb objectes, concretament amb la classe 'MethodContext'. Aquesta classe gestiona l'espai associat a l'execució d'un 'CompiledMethod' (PC, el mètode en si, *sender* i *receiver*). El *sender* és el previ MethodContext.
 
-Al aturar el context amb el mètode `halt` hem d'anar amb cuidado. No podem posar `halt` en mètodes que s'utilitzen sovint ja que es començarà a aturar tot. Podem crear el metode `haltIf`, que s'atura només si el mètode ha estat invocat des d'algun altre amb un selector determina:
+En aturar el context amb el mètode 'halt' hem d'anar amb compte. No podem posar 'halt' en mètodes que s'utilitzen sovint, ja que es començarà a aturar tot. Podem crear el mètode 'haltIf', que s'atura només si el mètode ha estat invocat des d'algun altre amb un selector determina:
 
 ```smalltalk
 haltIf: aSelector
@@ -359,7 +356,7 @@ fighters
     ^ (self foo), 'fighters'
 ```
 
-En el mètode `#foo`, diu que faci `halt` si `#foo` és cridada desde `#fighters`. El mètode `#figthers` crida a `#foo`, al fer `#foo` `#fighters`, salta.
+En el mètode `#foo`, diu que faci `halt` si `#foo` és cridada des de `#fighters`. El mètode `#figthers` crida a `#foo`, al fer `#foo` `#fighters`, salta.
 
 ```smalltalk
 HaltDemo new foo. " 'foo' "
@@ -432,15 +429,15 @@ theLoop := [
 theLoop value.
 ```
 
-**BlockWithExit** és una variant de **BlockClosure** que permet sortir de la closure cridant exit. En aquest codi es crea una llista de 1000 elements amb un nombre aleatori entre 0 i 1000. En el bloc de `theLoop` s'itera per tota la llista (`coll do: [ :each |`), es mostra el valor (`Transcript show: each asString; cr.`) i si el valor és menor de 100 (`(each < 100) ifTrue:`) es surt del bloc (`[theLoop exit]`).
+**BlockWithExit** és una variant de **BlockClosure** que permet sortir de la closure cridant exit. En aquest codi es crea una llista de 1000 elements amb un nombre aleatori entre 0 i 1000. En el bloc de 'theLoop' s'itera per tota la llista ('coll do: [ :each |'), es mostra el valor ('Transcript show: each asString; cr.') i si el valor és menor de 100 ('(each < 100) ifTrue:') se surt del bloc ('[theLoop exit]').
 
-Com el bloc que es crea és el per defecte de Smalltalk (`BlockClosure`) afegim el metode `#withExit` que crea un `BlockWithExit`.
+Com el bloc que es crea és el per defecte de Smalltalk ('BlockClosure') afegim el mètode '#withExit' que crea un 'BlockWithExit'.
 
 ### Intercessió
 
-#### Sobreescriure `#doesNotUnderstand:`
+#### Sobreescriure '#doesNotUnderstand:'
 
-Cal crear un objecte mínim. Embolica un objecte normal (*wrap*), no enten quasi res i redefineix `#doesNotUnerstand:`. És superclasse de `nil` o `ProtoObject` per no tenir la implementació normal de `#doesNotUnerstand:`. Finalment utilitxa el metode `#become:` per substituir i controlar l'objecte a controlar.
+Cal crear un objecte mínim. Embolica un objecte normal (*wrap*), no entén quasi res i redefineix '#doesNotUnerstand:'. És superclasse de 'nil' o 'ProtoObject' per no tenir la implementació normal de '#doesNotUnerstand:'. Finalment utilitza el mètode '#become:' per substituir i controlar l'objecte a controlar.
 
 ```smalltalk
 ProtoObject subclass: #LoggingProxy
@@ -449,7 +446,7 @@ ProtoObject subclass: #LoggingProxy
     category: 'Reflexio'
 ```
 
-La idea es col·locar aquest objecte entre el missatge i l'objecte receptor (`receiver`).
+La idea és col·locar aquest objecte entre el missatge i l'objecte receptor ('receiver').
 
 ```smalltalk
 initialize
@@ -484,13 +481,13 @@ testDelegation
     self assert: point invocationCount = 1.
 ```
 
-Quan `point` es transforma en el proxy només sap fer `#doesNotUnderstand`. Ja no és `(1@2)`, el proxy passa ser-ho. Quan se li envia el missatge `#+` a `point`, ja no l'entén i executa `#doesNotUnderstand`. A `#doesNotUnderstant`, point escriu pel `Transcrip`, incrementa el `invocationCount` i finalment envia el missatge al `subject`.
+Quan 'point' es transforma en el proxy només sap fer '#doesNotUnderstand'. Ja no és '(1@2)', el proxy passa ser-ho. Quan se li envia el missatge '#+' a 'point', ja no l'entén i executa '#doesNotUnderstand'. A '#doesNotUnderstant', point escriu pel 'Transcrip', incrementa el 'invocationCount' i finalment envia el missatge al 'subject'.
 
-La variable `subject` s'ha inicialitzat amb `self`, és a dir, `proxy`. `proxy` s'ha transformat en el punt `point`, ho podem veure en el primer `#assert:`. Aixi que envia el missatge a `proxy`, que ara és el punt `(1@2)` i si que l'enten.
+La variable 'subject' s'ha inicialitzat amb 'self', és a dir, 'proxy'. 'proxy' s'ha transformat en el punt 'point', ho podem veure en el primer '#assert:'. Aixi que envia el missatge a 'proxy', que ara és el punt '(1@2)' i sí que l'entén.
 
 ##### Getters "on demand"
 
-És pot sobreescriure el mètode `#doesNotUnderstand` per generar codi dinàmicament. Un cop la classe reb un missatge que no entén comprova si alguna de les seves variables d'instància té el nom del missatge, és a dir, s'està demanant pero com no te *getter* dóna error. Si la variable existeix compila `#nom ^ #nom` i l'executa. Si no existeix continua amb l'execució normal de `#doesNotUnderstand`.
+Es pot sobreescriure el mètode '#doesNotUnderstand' per generar codi dinàmicament. Un cop la classe rep un missatge que no entén comprova si alguna de les seves variables d'instància té el nom del missatge, és a dir, s'està demanant però com no te *getter* dóna error. Si la variable existeix, compila '#nom ^ #nom' i l'executa. Si no existeix, continua amb l'execució normal de '#doesNotUnderstand'.
 
 ```smalltalk
 doesNotUnderstand: aMessage 
@@ -504,7 +501,7 @@ doesNotUnderstand: aMessage
 
 #### Classes anònimes
 
-Consisteix en crear un instancia de `Behavior`, definir els mètodes i posar-la entre la instància i la classe. Una classe anònima permet un control sel·lectiu, no dóna problemes amb el `self`, és eficient i dóna transparencia a l'usuari.
+Consisteix a crear una instància de 'Behavior', definir els mètodes i posar-la entre la instància i la classe. Una classe anònima permet un control selectiu, no dóna problemes amb el 'self', és eficient i dóna transparència a l'usuari.
 
 ```smalltalk
 | casseAnonima set |
@@ -524,9 +521,9 @@ set primitiveChangeClassTo: casseAnonima new.
 set add: 2.
 ```
 
-El primer `#add` és normal, el segón és el compilat en el codi i mostra "*adding 2*" pel Transcript.
+El primer '#add' és normal, el segon és el compilat en el codi i mostra "*adding 2*" pel Transcript.
 
-> Per que aquest codi funcioni cal crear aquests dos nous mètodes a la classe `TBehavior`
+> Perquè aquest codi funcioni cal crear aquests dos nous mètodes a la classe 'TBehavior'.
 
 ```smalltalk
 basicLocalSelectors
@@ -539,7 +536,7 @@ basicLocalSelectors: aSetOrNil
 ```
 #### Method Wrappers
 
-La idea és poder executar codi abans i despres de que s'executi el mètode que s'invoca. Es substitueix el mètode per un objecte que implementi `#run:with:in:`.
+La idea és poder executar codi abans i després que s'executi el mètode que s'invoca. Se substitueix el mètode per un objecte que implementi '#run:with:in:'.
 
 ```smalltalk
 Object subclass: #LoggingMethodWrapper
@@ -561,7 +558,7 @@ run: aSelector with: anArray in: aReceiver
     ^ aReceiver withArgs: anArray executeMethod: method
 ```
 
-Apart d'això tenim el mètode `#install` (i `#uninstall`, que és molt similar) que fa el *wrap* del mètode.
+A part d'això tenim el mètode '#install' (i '#uninstall', que és molt similar) que fa el *wrap* del mètode.
 
 ```smalltalk
 install
@@ -582,11 +579,11 @@ logger invocationCount. "6"
 logger invocationCount. "6"
 ```
 
-Al fer *wrap* d'un mètode totes les instàncies queden controlades, només s'intercepten els missatges conegurs (es pot controlar només un sol mètode) i no cal compilar per instal·lar.
+Al fer *wrap* d'un mètode totes les instàncies queden controlades, només s'intercepten els missatges coneguts (es pot controlar només un sol mètode) i no cal compilar per instal·lar.
 
 ## Continuacions
 
-A Pharo 3.0 tenim la classe `Continuation` que serveix per guardar la pila d'execució en un moment donat.
+A Pharo 3.0 tenim la classe 'Continuation' que serveix per guardar la pila d'execució en un moment donat.
 
 ```smalltalk
 Object subclass: #Continuation
@@ -610,10 +607,9 @@ initializeFromContext: aContext
     values := valueStream contents
 ```
 
-Quan cridem a inicialitzar una nova continuacio amb un context, a partir del context donat (`context := aContext.`) itera per la seva pila d'execució fin al final (`[context notNil] whileTrue: [` ... `context := context sender].`) i afageig el context (`valueStream nextPut: context.`) i les variables d'instància (`1 to: context class instSize do: [:i | valueStream nextPut: (context instVarAt: i)].`) i de classe (`1 to: context size do: [:i | valueStream nextPut: (context at: i)].`).
+Quan cridem a inicialitzar una nova continuació amb un context, a partir del context donat ('context := aContext.') itera per la seva pila d'execució fins al final ('[context notNil] whileTrue: [' ... 'context := context sender].') i afegeix el context ('valueStream nextPut: context.') i les variables d'instància ('1 to: context class instSize do: [:i | valueStream nextPut: (context instVarAt: i)].') i de classe ('1 to: context size do: [:i | valueStream nextPut: (context at: i)].').
 
-
-La classe `Continuation` té un mètode anomenat `#value: anObject` que, donat un objecte, recupera el context que teniem guardat, el converteix en el context actual i retorna l'objecte `anObject` per poder continuar l'execució del context tot just restaurat.
+La classe 'Continuation' té un mètode anomenat '#value: anObject' que, donat un objecte, recupera el context que teníem guardat, el converteix en el context actual i retorna l'objecte 'anObject' per poder continuar l'execució del context tot just restaurat.
 
 ```smalltalk
 | lletra |
@@ -638,11 +634,11 @@ f
 ```
 
 
-El que fa aquest codi és crear una continuació amb el context actual i asignar-li a `lletra`. Després comprova si `lletra` és la lletra f, obviament no ho és perque acabem de dir que és una continuació aixi que executa el bloc `ifFalse`. Dintre d'aquell bloc mostra pel Transcript _a Continuation_ i li dona el valor `$f` a la continuació `lletra`.
+El que fa aquest codi és crear una continuació amb el context actual i assignar-li a 'lletra'. Després comprova si 'lletra' és la lletra f, òbviament no ho és perquè acabem de dir que és una continuació així que executa el bloc 'ifFalse'. Dintre d'aquell bloc mostra pel Transcript _a Continuation_ i li dóna el valor '$f' a la continuació 'lletra'.
 
-Allà és quan hi ha el canvi de context. Com he explicat abans el mètode `#value: anObject` recupera el context que teniem guardat, el converteix en l'actual i retorna `anObject`. Així doncs tornem a la linia on li assignavem `Continuation new ...` a `lletra` i retornem `$f`. Al convertir `thisContext` en el context actual l'execucó segueix a partir d'alla. Entrarà al bloc `ifTrue` i mostrarà _és la lletra f_ i _f_.
+Allà és quan hi ha el canvi de context. Com he explicat abans el mètode '#value: anObject' recupera el context que teníem guardat, el converteix en l'actual i retorna 'anObject'. Així doncs tornem a la línia on li assignàvem 'Continuation new ...' a 'lletra' i retornem '$f'. En convertir 'thisContext' en el context actual l'execució segueix a partir d'allà. Entrarà al bloc 'ifTrue' i mostrarà _és la lletra f_ i _f_.
 
-### Evaluar continuacions: `#value: anObject`
+### Avaluar continuacions: '#value: anObject'
 
 ```smalltalk
 value: anObject
@@ -652,7 +648,7 @@ value: anObject
     ^ anObject
 ```
 
-Aquest mètode, primer de tot elimina el context actual, per tant deixem d'estar en el moment en que s'ha cridat `#value:`. Acte seguit recupera la pila del moment en que s'ha inicialitzat la continuació. Finalment diu que el context actual és el primer de la pila cargada i retorna el valor que se li ha passat al mètode.
+Aquest mètode, primer de tot elimina el context actual, per tant deixem d'estar en el moment en què s'ha cridat '#value:'. Tot seguit recupera la pila del moment en què s'ha inicialitzat la continuació. Finalment diu que el context actual és el primer de la pila carregada i retorna el valor que se li ha enviat al mètode.
 
 ### Call current continuation: `#callcc: aBlock`
 
@@ -661,11 +657,11 @@ callcc: aBlock
     ^ self currentDo: aBlock
 ```
 
-La idea d'aquest mètode és capturar el context actual en una instància i passar-li una continuació d'aquest context com a paràmetre a `aBlock` quan és evaluat.
+La idea d'aquest mètode és capturar el context actual en una instància i passar-li una continuació d'aquest context com a paràmetre a 'aBlock' quan és avaluat.
 
 *WHAT!?...* Exacte, que?
 
-`#currentDo: aBlock` evalua el block donat amb el resultat de `self fromContext: thisContext sender`, és a dir, una continuació del context del `sender` (és el `sender` perque si no el context seria aquella mateixa linea del `currentDo` i no és el que volem). `fromContext` crida a `#initializeFromContext:`, i ja sabem que fa.
+'#currentDo: aBlock' avalua el block donat amb el resultat de 'self fromContext: thisContext sender', és a dir, una continuació del context del 'sender' (és el 'sender' perquè si no el context seria aquella mateixa línia del 'currentDo' i no és el que volem). 'fromContext' crida a '#initializeFromContext:', i ja sabem que fa.
 
 ```smalltalk
 currentDo: aBlock
@@ -677,7 +673,7 @@ fromContext: aStack
     ^self new initializeFromContext: aStack
 ```
 
-Recapitulem: al invocar `callcc` amb un bloc *B*, evaluem el bloc *B* amb la continuació resultant del context on es crida `callcc` (`thisContext sender`).
+Recapitulem: en invocar 'callcc' amb un bloc *B*, avaluem el bloc *B* amb la continuació resultant del context on es crida 'callcc' ('thisContext sender').
 
 ##### Exemples de `#callcc: aBlock`
 
@@ -687,12 +683,19 @@ x := Continuation callcc: [ :cc | cc value: true ].
 x "print => true"
 ```
 
-Al cridar `callcc` el que fem és evaluar el bloc `[ :cc | cc value: true ]` amb una continuació d'aquell context (aquesta continuació es crea dintre de `callcc`, a `currentDo`). Al evaluar el bloc amb la continuació, evaluem la continuació amb `true`, és a dir, x val true.
+En cridar 'callcc' el que fem és avaluar el bloc '[ :cc | cc value: true ]' amb una continuació d'aquell context (aquesta continuació es crea dintre de 'callcc', a 'currentDo'). En avaluar el bloc amb la continuació, avaluem la continuació amb 'true', és a dir, x val true.
 
-Podem afegir uns `Transcripts show:` per veure cuin és l'ordre en que s'executen les coses:
+Podem afegir uns 'Transcripts show:' per veure quin és l'ordre en què s'executen les coses:
 
 ```smalltalk
-| x |x := Continuation callcc: [ :cc |	Transcript show: 'Primer'; cr.	cc value: true.	Transcript show: 'Això mai d'executa'; cr. ].Transcript show: 'Segon'; cr.Transcript show: x; cr.```
+| x |
+x := Continuation callcc: [ :cc |
+	Transcript show: 'Primer'; cr.
+	cc value: true.
+	Transcript show: 'Això mai d'executa'; cr. ].
+Transcript show: 'Segon'; cr.
+Transcript show: x; cr.
+```
 
 El resultat d'aquest codi serà:
 
@@ -704,7 +707,19 @@ true
 
 Un altre exemple per entendre el valor de `cc` i `x`:
 
-```smalltalk| cont x |x := Continuation callcc: [ :cc |	cont := cc.	cont value: 1 ].(x = 1)	ifTrue: [		Transcript show: 'x = '.		Transcript show: x; cr.		cont value: 2 ]	ifFalse: [		Transcript show: 'x = '.		Transcript show: x; cr. ].
+```smalltalk
+| cont x |
+x := Continuation callcc: [ :cc |
+	cont := cc.
+	cont value: 1 ].
+(x = 1)
+	ifTrue: [
+		Transcript show: 'x = '.
+		Transcript show: x; cr.
+		cont value: 2 ]
+	ifFalse: [
+		Transcript show: 'x = '.
+		Transcript show: x; cr. ].
 ```
 
 El resultat d'aquest codi serà:
@@ -714,7 +729,7 @@ x = 1
 x = 2
 ```
 
-El evaluar el bloc del `callcc` guardem la continuació a la variable `cont` i l'evaluem amb valor *1*. Continuem i mirem que x sigui igual a *1*, obviament ho és perque acabem de donarli aquell valor. Dins del bloc del `ifTrue:` es torna a evaluar la continuació amb valor *2*.
+En avaluar el bloc del 'callcc' guardem la continuació a la variable 'cont' i l'avaluem amb valor *1*. Continuem i mirem que x sigui igual a *1*, òbviament ho és perquè acabem de donar-li aquell valor. Dins del bloc del 'ifTrue:' es torna a avaluar la continuació amb valor *2*.
 
 ```smalltalk
 mentreCert: aBlock
@@ -727,7 +742,7 @@ mentreCert: aBlock
         ifFalse: [ ^ nil].
 ```
 
-En aquest codi volem fer un bucle mentre el bloc `self` sigui cert. Així doncs, creem una **continuació que serà evaluada en el bloc `[ :cc | cc ]`**. Després evaluem `self` (la condició del _whileTrue_), evaluem el bloc `aBlock` si és cert o sortim (amb `[ ^ nil ]`) si es fals. En cas de que sigui cert, després d'evaluar el bloc `aBlock`, **evaluem `cont`** amb `cont` com a valor. Això li passa `cont` al bloc `[ :cc | cc ]`. Aquest bloc retorna `cc`, el _value_ que li passis. Aixi que `cont` serà **la mateixa continuacó d'abans, que serà evaluada en el bloc `[ :cc | cc ]`**. Tindrà el context d'aquell moment, l'execució continuarà desde aquell punt i tornarà a evaluar-se `self` com en un `whileTrue`.
+En aquest codi volem fer un bucle mentre el bloc 'self' sigui cert. Així doncs, creem una **continuació que serà avaluada en el bloc '[ :cc | cc ]'**. Després avaluem 'self' (la condició del _whileTrue_), avaluem el bloc 'aBlock' si és cert o sortim (amb '[ ^ nil ]') si és fals. En cas que sigui cert, després d'avaluar el bloc 'aBlock', **avaluem 'cont'** amb 'cont' com a valor. Això li passa 'cont' al bloc '[ :cc | cc ]'. Aquest bloc retorna 'cc', el _value_ que li passis. Així que 'cont' serà **la mateixa continuació d'abans, que serà avaluada en el bloc '[ :cc | cc ]'**. Tindrà el context d'aquell moment, l'execució continuarà des d'aquell punt i tornarà a avaluar-se 'self' com en un 'whileTrue'.
 
 
 
